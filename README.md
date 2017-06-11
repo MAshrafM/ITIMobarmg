@@ -47,3 +47,57 @@ IEEE-754 (aka 'Double')
 >  They are immutable  
 >  Similar Strings are equal (===)  
 ---  
+- L04: JS types (functions)
+> - functions expressions  
+>  are first class objects  
+>  optional name  
+>  parameters (wrapped in parens, zero or more, seperated by commas )   
+>  body (wrapped in curly braces, zero or more )
+>   ```javascript
+>   // ex: 
+>   var f = function foo(){
+>   }
+>   (function foo(){
+>   })
+>    !function foo(){
+>   }
+>   ```
+> - functions statement  
+>  mandatory name  
+>  parameters (wrapped in parens, zero or more, seperated by commas )   
+>  body (wrapped in curly braces, zero or more )  
+>  It is just a short hand for a var statement with a function value 
+>   ```javascript
+>   function foo(){
+>   }
+>   ```
+> - Scope: Block scope V function scope  
+> - return statement
+>  if there is no expression then the return value is undefined, except for constructors its return is (this).  
+> - function arguments[], don't swap arguments
+>   ```javascript
+>   // same are Array.reduce
+>   function sum(){
+>     var i,
+>         n = arguments.length,
+>         total = 0;
+>     for(i = 0; i < n; i++){
+>       total += arguments[i];
+>     }
+>     return total;
+>   }
+>   var ten = sum (1,2,3,4);
+>   ```
+> - this  
+>  this parameter contains a reference to the object of invocation  
+>  allow single function object to service many functions  
+>  is key to prototypal inheritance  
+>  Its value depends on the calling form.  
+>  Is bound at invocation time  
+> - Invocation (function form, method form, constructor form, apply form)  
+>  Function form; functionObject(arguments)  
+>  Method form; thisObject.methodName(arguments)  
+>  Apply form; functionObject.apply(thisObject, argsArray)  
+---  
+
+
