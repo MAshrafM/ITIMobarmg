@@ -99,5 +99,23 @@ IEEE-754 (aka 'Double')
 >  Method form; thisObject.methodName(arguments)  
 >  Apply form; functionObject.apply(thisObject, argsArray)  
 ---  
-
-
+- L05: JS types (String, Objects)
+> - String Methods:  
+>  [charAt(index), charCodeAt(index), concat, split, indexOf, lastIndexOf, search(regexp), substring, slice, match(regexp), toLowerCase, toUpperCase, replace, trim]  
+> - Objects: Arrays  
+>  it inherits from objects.  
+>  indexes are converted to strings and used as name fir retrieving values.  
+>  no performance gained from being an array, because it is an object.  
+>  No need to provide a length or type when creating an array.  
+> - Array Literals  
+>  [] equals to new Array()  
+>  can append new items arr[arr.length] = 'sth';  
+>  dot notation should not be used with arrays.  
+>  delete array[index]; removes the element but leaves a hole in the numbering.  
+>  array.splice(index, 1); removes the element and renumbers the following elements.  
+> - Array Methods:  
+>  [concat, join, pop, push, reverse, shift, slice, sort, splice, toLocaleString, toString, unshift, indexOf, lastIndexOf, every, some, forEach, map, filter, reduce, reduceRight, isArray]  
+>  Do not use sort as sort algorithm; it converts elements to string and sort by chars; ex: 2, 24, 4 , 50 to 2,24, 4, 50.  
+> - null: value that is not anything  
+> - undefined: default value for vars and params  
+---
