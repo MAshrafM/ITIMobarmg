@@ -119,4 +119,38 @@ IEEE-754 (aka 'Double')
 >  Method form; thisObject.methodName(arguments)  
 >  Apply form; functionObject.apply(thisObject, argsArray)  
 ---  
+- L06: Closure
+> The context of an inner function includes the scope of the outer function.  
+> An inner function enjoys that context even after the parent functions have returned.  
+> Closure is when a function is able to remember and access its lexical scope even when that function is executing outside its lexical scope.  
+> ```javascript
+> var digit_name = (function(n){  
+>   var names = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];  
+>   return function(n){
+>     return names[n];
+>   };
+> }());
+> var str = digit_name(3); //three
+> ```
 
+> ```javascript
+> function add_ten_inputs(){
+> 	var i;
+> 	for(i = 0; i < 10; i++){
+> 		var btn = document.createElement('input');
+> 		btn.value = 'input' + i;
+> 		/* This is Wrong, wont work fine
+> 		btn.onclick = alert('input' + i);
+> 		this will always return 10
+>		*/
+> 		btn.onclick = (function(n){
+> 			return function(){
+> 				alert('input' + n);
+> 			};
+> 		}(i));
+>		window.document.body.appendChild(btn);
+>	}
+> }
+> add_ten_inputs();
+> ```
+---
