@@ -220,3 +220,14 @@ IEEE-754 (aka 'Double')
 > }());
 >```
 ---
+- L09: JS types (object)  
+> An object is a dynamic collection of properties. Every property has a key string that is unique within that object.  
+> - Get, Set, Delete  
+>  Dot notation (only works for valid identifiers)|| Subscript notation.  
+>  obj.propName || obj['propName']  
+>  obj.propName = value
+>  delete obj.propName  
+> - Object Literals  
+>  var myObj = {name: 'js', age: 12, grade: 'A'}  
+> - Inheritance (Classes Vs Prototypes)    
+---  
