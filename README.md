@@ -192,4 +192,31 @@ IEEE-754 (aka 'Double')
 > - Try statement  
 >  only one catch as all the error as of type object.  
 >  try{...} catch(e){ switch(e.name){}}  
-
+---
+- L08: Throw Exception / Handling Tech. Ex.
+> ```javascript
+> // module
+> (function(){
+>  var add = function(x, y){
+>    if(Object.prototype.toString.call(x) !== '[object Number]'){
+>      throw{
+>        name: 'Invalid Argument',
+>        message: 'Please provide a number for x'
+>      };
+>    }
+>    if(Object.prototype.toString.call(y) !== '[object Number]'){
+>      throw{
+>       name: 'Invalid Argument',
+>        message: 'Please provide a number for y'
+>      };
+>    }
+>    return x + y;
+>  };
+>  
+>  // expose namespace
+>  window.itworx = window.itworx || {};
+>  window.itworx.math = window.itworx.math || {};
+>  window.itworx.math.add = add;
+> }());
+>```
+---
