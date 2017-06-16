@@ -67,7 +67,7 @@ IEEE-754 (aka 'Double')
 > - null: value that is not anything  
 > - undefined: default value for vars and params  
 ---  
-- L05: JS types (functions)
+- L05: JS types (Objects - functions)
 > - functions expressions  
 >  are first class objects  
 >  optional name  
@@ -154,3 +154,42 @@ IEEE-754 (aka 'Double')
 > add_ten_inputs();
 > ```
 ---
+- L07: JS types (boolean)
+> passing by values; with primitive pass copy of the value itself, with objects passing copy of reference  
+> - Boolean(value)  
+>  return true if the value is truthy  
+>  return false if the value is falsy  
+> - Falsy values:  
+>  false  
+>  null  
+>  undefined  
+>  "" (empty string)  
+>  0, +0, -0  
+>  NaN  
+>  All other values consider truthy even "0", "false"  
+> - The Equals Operator (==)
+>  if they are primitive values then compare the values.  
+>  else(Object) then compare the reference.  
+>  if one of them is null return false; else convert to numbers and compare.  
+>  Exceptions: NaN == NaN (false) | Null == undefined (true)  
+> - The Strict Equals Operator (===)  
+>  Different types return false.  
+>  same types: if they are primitive then compare values; else compare the reference.  
+>  Exceptions: NaN === NaN (false)  
+> - Not Equal Operators  
+>  A != B // !(A==B)  
+>  A !==B // !(A===B)  
+> - &&  
+>  The guard operator
+>  if the first operand is truthy then the result is the second operand, else result is the first operand.  
+> - ||  
+>  the default operator  
+>  if the first operand is truthy then result  is first operand else result is second operand.  
+> - to check type use: Object.prototype.toString.call(x) instead of typeof x;  
+> - Throw statement
+>  throw new Error(msg);  
+>  throw{ name: exception Name, message: msg};  
+> - Try statement  
+>  only one catch as all the error as of type object.  
+>  try{...} catch(e){ switch(e.name){}}  
+
