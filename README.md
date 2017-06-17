@@ -231,3 +231,65 @@ IEEE-754 (aka 'Double')
 >  var myObj = {name: 'js', age: 12, grade: 'A'}  
 > - Inheritance (Classes Vs Prototypes)    
 ---  
+- L10: DOM
+> - Document Tree Structure  
+>  document.body
+>  firstChild, lastChild, nextSibling, previousSibling  
+>  childNodes
+> - Walk The Dom (DFS)  
+> ```javascript
+> function walkTheDom(node, func){
+>   func(node);
+>   node = node.firstChild;
+>   while(node){
+>     walkTheDom(node, func);
+>     node = node.nextSibling;
+>   }
+> }
+> ```
+> - getElementsByClassName
+> ```javascript
+> function getElementsByClassName(className){
+>   var results = [];
+>   walkTheDom(document.body, function(node){
+>     var arr, c = node.className, i;
+>     if(c){
+>       arr = c.split(' ');
+>       for(i = 0; i < arr.length; i+= 1){
+>         if(arr[i] === className){
+>           results.push(node);
+>           break;
+>         }
+>       }
+>     }
+>   });
+>   return results;
+>}  
+>```  
+> - Retrieving Nodes  
+>  document.getElementById(id)  
+>  document.getElementsByName(name)  
+>  node.getElementsByTagName(tagName)  
+>  document.querySelectorAll(cssSelector)  
+>  
+> - Retrieving Nodes Using JQuery  
+>  $('selector') by [TagName, Id, class, Mix]  
+>  Attributes Selectors:  *$('[title]')*, *$('a[title]')*, *$('a[title \*= amazing]')*, *$('a[title ^= my]')*, *$('a[title $= my]')*, *$('a[id][title $= my]')*  
+>  Form Selectors: *$(':input')*, *$(':checkbox')* ie. this is faster *$('input[type="checkbox"]')*; if the selector started with : then the universal selector is implied; *$(':checked')* works for radio, checkboxes; *$(':selected')* works for select; *$(':enabled')* enable property true same for disabled; *$(':hidden')*.  
+> - Element is considered hidden if: they have a CSS display value of none, They are form elements with type hidden, Their width and height are explicitly set to 0.  
+> - Hirarchy  
+>  ("parent > child") direct children.  
+>  ("ancestor descendant") select descendant of a given ancestor.  
+>  ("prev + next") select all "next" elements matching next that are immediately preceded by a sibling "prev".  
+> - Child Filter: *$(':first-child')*, *$(':last-child')*, *$(':nth-child(index/even/odd/equation)')*.  
+>  - Resulted element at Index: *$(':first')*, *$(':last')*, *$(':odd')*, *$(':even')*, *$(':eq(#)')*, *$(':lt(#)')*, *$(':gt(#)')*.  
+> - Others: *$(':animated')*, *$(':root')* the html element itself, *$(':focused')* using document.activeElement is better.  
+> - Filteration Methods: $(selector). first()/last()/eq(index)/siblings()/next()/nextAll()/nextUntil('selectorToStopAt')/prev()/prevAll()/prevUntil(selectorToStopAt)/children()/parent()/Parents() - all parents till the html element/closest(selector)/filter(selector)/find(selector)- search in the descendants to match the selector/end() - works with find.  
+>  Use filter for non pure selectors ie *$('div input').filter(':radio');*  
+>  Be specific on the right, light on the left  
+>  Be more specific, better to descend from an id  
+>  Do not be over-specific.  
+> - DOM Manipulation  
+>  Manipulating Attributes  
+>  Memory Leaks  
+---  
