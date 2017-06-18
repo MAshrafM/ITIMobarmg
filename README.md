@@ -293,3 +293,20 @@ IEEE-754 (aka 'Double')
 >  Manipulating Attributes  
 >  Memory Leaks  
 ---  
+- L11: Events  
+> The browser has an event-driven, single-threaded, asynchronous programming model.  
+> Mouse and Keyboard Events are targeted to particular nodes.  
+> Events cause the invocation of event handler functions.  
+> - Mouse Events  
+>  The target is the topmost (z-index) node containing the cursor.  
+>  [click, dbclick, mousedown, mousemove, mouseout, mouseover, mouseup]  
+> - Input Events  
+>  The target is the node having focus.  
+>  [blur, change, focus, keydown, keypress, keyup, reset, submit]  
+> - Event Handlers.  
+>  *node.addEventListener(type, f, false);*  
+> - Capturing and Bubbling  
+>  Bubbling means that the event is given to the target, and then its parent, and then its parent, and so on until the event is canceled.  
+>  Cancel Bubbling to keep the parent nodes from seeing the event.  *e.stopPropagation()*  
+>  Prevent Default Action to prevent browser action associated with the event. *e.preventDefault()*  
+---
