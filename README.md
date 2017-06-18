@@ -310,3 +310,13 @@ IEEE-754 (aka 'Double')
 >  Cancel Bubbling to keep the parent nodes from seeing the event.  *e.stopPropagation()*  
 >  Prevent Default Action to prevent browser action associated with the event. *e.preventDefault()*  
 ---
+- L12: Events example  
+> ```javascript
+> document.getElementById('grandparent')
+>   .addEventListener('click', function(e){
+>     e = e || event;
+>     var target = e.srcElement || e.target;
+>     alert(target.id);
+>   }, false);
+> ```
+---  
