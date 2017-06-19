@@ -337,3 +337,75 @@ IEEE-754 (aka 'Double')
 > });
 > ```
 ---
+- L14: Promises And Deferred  
+> ```javascript
+> var adder = function(){
+>   var result = 0,
+>       i;
+>   for(i=0; i< arguments.length; i++){
+>     result += Number(arguments[i]);
+>   }
+>   return result;
+> }
+> 
+> var alerter = $.Deferred();
+> setTimeout(function(){
+>   var result = adder(2, 4, 2);
+>   alerter.resolve(result);
+>   alerter.reject('can\'t add');
+> }, 5000);
+>
+> alerter
+>   .done(function(x){
+>     alert(x + 'in done');
+>   }).fail(function(x){
+>     alert(x + 'in fail');
+>   }).always(function(x){
+>     alert(x + 'in always');
+>   });
+>
+> alert('here');
+> ```
+> Refactor
+> ```javascript
+> // dataLayer
+> (function(){
+>  var add = function(){
+>    var result = 0,
+>        i;
+>    for(i = 0; arguments.length; i++){
+>      result += Number(arguments[i]);
+>    }
+>    return result;
+>  },
+>  
+>  dataLayer = {
+>    myAdd: function(x, y){
+>      var def = $.Deferred();
+>      
+>      setTimeout(function(){
+>        def.resolve(add(x,y));
+>      }, 5000);
+>     
+>      return def.promise();
+>    }
+>  };
+>  
+>  window.dataLayer = dataLayer;
+>}());
+>
+>// Service Layer
+>(function(dlayer){
+>  var serviceLayer = {
+>   add: function(x, y){
+>      return dlayer.myAdd(x, y)
+>          .done(function(m){
+>            alert('service layer: ' + m)
+>          });
+>    }
+>  }
+>  
+>  window.serviceLayer = serviceLayer;
+>}(window.dataLayer)
+> ```
+---
