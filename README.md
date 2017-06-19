@@ -320,3 +320,20 @@ IEEE-754 (aka 'Double')
 >   }, false);
 > ```
 ---  
+- L13: Promises And Deferred *No Audio*  
+> ```javascript
+> $('input[type="button"]').on('click', function(){
+>   $.ajax({
+>     url: '/Math/Add?x=' + $('#num1').val() + '&y=' + $('#num2').val(),
+>     method: 'PUT',
+>     contentType: 'application/json',
+>     data: JSON.stringify({x : $('#num1').val(), y: $('#num2').val()}),
+>     cache: false
+>   }).done(function(result){
+>     alert(result);
+>   }).fail(function(response){
+>     alert(response);
+>   });
+> });
+> ```
+---
