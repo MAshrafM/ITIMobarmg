@@ -409,3 +409,88 @@ IEEE-754 (aka 'Double')
 >}(window.dataLayer)
 > ```
 ---
+- L15: SPA
+> Web API 
+> MoviesSPA/Controllers/MoviesController.cs
+> ```cs
+> using System;
+> using System.Collections.Generic;
+> using System.Linq;
+> using System.Web;
+> using System.Web.Http;
+> 
+> namespace MoviesSPA.Controllers
+> {
+>     public class MoviesController : ApiController
+>     {
+>         [HttpGet]
+>         public IEnumerable<Movie> Get(int startIndex, int pageSize, string sorting)
+>         {
+>             var movies = AddOrderBy(MoviesDb, sorting);
+>             movies.Skip(startIndex).Take(pageSize).ToList();
+>             return movies;
+>         }
+>         [HttpPut]
+>         public void Add(Movie movie)
+>        {
+>             movie.Id = MoviesDb.Max(m => m.Id) + 1;
+>             MoviesDb.Add(movie);
+>         }
+>         [HttpDelete]
+>         public void Remove(int id)
+>         {
+>             MoviesDb.RemoveAll(m => m.Id == id);
+>         }
+>         [HttpPost]
+>         public void Modify(Movie movie)
+>         {
+>             MoviesDb.RemoveAll(m => m.Id == movie.Id);
+>             MoviesDb.Add(movie);
+>         }
+> 
+> 
+>         private IEnumerable<Movie> AddOrderBy(IEnumerable<Movie> MoviesDb, string sorting)
+>         {
+>             if (string.IsNullOrWhiteSpace(sorting)) return MoviesDb;
+>             var sortFieldAndOrder = sorting.Split(' ');
+>             var sortField = sortFieldAndOrder[0];
+>             var sortOrder = sortFieldAndOrder[1];
+> 
+>             switch (sortField)
+>             {
+>                 case "Id":
+>                     return sortOrder == "ASC" ? MoviesDb.OrderBy(m => m.Id) : MoviesDb.OrderByDescending(m => m.Id);
+>                 case "Title":
+>                     return sortOrder == "ASC" ? MoviesDb.OrderBy(m => m.Title) : MoviesDb.OrderByDescending(m => m.Title);
+>                 case "Rate":
+>                     return sortOrder == "ASC" ? MoviesDb.OrderBy(m => m.Rate) : MoviesDb.OrderByDescending(m => m.Rate);
+>                 case "Remarks":
+>                     return sortOrder == "ASC" ? MoviesDb.OrderBy(m => m.Remarks) : MoviesDb.OrderByDescending(m => m.Remarks);
+>                 default:
+>                     return MoviesDb;
+>             }
+>         }
+> 
+>         private readonly static List<Movie> MoviesDb = new List<Movie>{
+>             new Movie{Id = 1, Title = "Gone Girl", Rate = 85},
+>             new Movie{Id = 2, Title = "The Dark Knight", Rate = 90},
+>             new Movie{Id = 3, Title = "Lord of The Rings", Rate = 95},
+>             new Movie{Id = 4, Title = "The Last Kingdom", Rate = 80},
+>             new Movie{Id = 5, Title = "I Am Legend", Rate = 84},
+>             new Movie{Id = 6, Title = "Resident Evil", Rate = 81},
+>             new Movie{Id = 7, Title = "Cabin In The Woods", Rate = 89},
+>             new Movie{Id = 8, Title = "Paranormal Activity", Rate = 70},
+>             new Movie{Id = 9, Title = "Saw", Rate = 86},
+>         };
+>     }
+> 
+>     public class Movie
+>     {
+>         public int Id { get; set; }
+>         public string Title { get; set; }
+>         public int Rate { get; set; }
+>         public string Remarks { get; set; }
+>      }
+> }
+> ```
+---
