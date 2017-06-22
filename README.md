@@ -40,3 +40,47 @@
 >  **Bitwise** (&, |, ^, <<, >>, ~)  
 >  **Ternary** (var = cond ? when true : when false;)  
 ---  
+- L03: Control Statments  
+> Conditional Statments [Switch, If Else], Loop Statments [For, While, Do While]  
+> - **Conditional Statments**
+>  Switch (int, float, char, string)  
+> ```cs
+> Console.Write("Please enter a char");
+> char c = char.Parse(Console.ReadLine());
+> switch (c)
+> {
+>   case'A':
+>   case'a':
+>     Console.WriteLine("Hi Ahmed");
+>     break;
+>   case'B':
+>   case'b':
+>     Console.WriteLine("Hi Bassem");
+>     break;
+>   default:
+>     Console.WriteLine("Error");
+>     break;
+> }
+> ```
+> If Else (boolean)
+> ```cs
+> if(c=='a' || c=='A'){
+>   Console.WriteLine("Hi Ahmed");
+> }
+> else if(c=='b' || b=='B'){
+>   Console.WriteLine("Hi Bassem");
+> }
+> else{
+>   Console.WriteLine("Error");
+> }
+> ```
+> - **Loop Statments**  
+> For Loop  
+> ```cs
+> for(int i = 0; i < 10; i++){
+>   Console.Write("{0}", i)
+> }
+> // Infinite Loops
+> for(;;){}
+> ```
+---
