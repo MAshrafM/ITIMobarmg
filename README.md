@@ -28,3 +28,15 @@
 > }
 > ```
 ---
+- L02: Data Types and Operators  
+> - **Data Types**  
+>  (sbyte = 1 byte), (short, ushort = 2 bytes), (int, uint = 4 bytes), (long, ulong = 8 bytes), (byte = 1 byte), (char = 2 bytes), (bool = 1 byte), (float = 4 bytes), (double = 8 bytes), (decimal = 16 bytes), (string, object = N/A)  
+>  Value Types V Reference Type  
+> - **Operators** [Arithmetic, Assignment, Relational, Logical, Bitwise, Ternary]  
+>  **Arithmetic** [Unary(++, --), Binary(+, -, *, /, %)]  
+>  **Assignment** (=, +=, -=, *=, /=, %=, &=, |=, ^=, <<=, >>=)  
+>  **Relational** (==, !=, <, >, <= , >=)  
+>  **Logical** (!, &&, ||, true, false)  
+>  **Bitwise** (&, |, ^, <<, >>, ~)  
+>  **Ternary** (var = cond ? when true : when false;)  
+---  
