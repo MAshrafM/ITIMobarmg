@@ -117,3 +117,15 @@
 >  ```
 >  *Recursion*  
 ---
+- L05: Functions  
+> ```cs
+> public static void PrintBinary(int no){
+>   int div = no / 2;
+>   int mod = no % 2;
+>   if(n > 1){
+>     PrintBinary(div);
+>   }
+>   Console.WriteLine(mod);
+> }
+> ```
+---
