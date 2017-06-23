@@ -178,3 +178,42 @@
 > }
 > ```
 ---
+- L07: Struct and Enum  
+> 2-Dim Arrays and Array of Arrays.  
+> ```cs
+> public static int[][] GetDataFromUser(){
+>   Console.Write("Please Enter No Of Rows");
+>   int row = int.Parse(Console.ReadLine());
+>   int[] cols = new int[row];
+>   for(int i = 0; i < row; i++){
+>     Console.Write("Please Enter Size of Row No {0}", i + 1);
+>     cols[i] = int.Parse(Console.ReadLine());
+>   }
+>   int[][] result = GetArrayFromUser(row, cols);
+>   for(int i =0; i < row; i++){
+>     for(int j = 0; j < cols[i]; j++){
+>       Console.WriteLine("data[{0}][{1}]", i + 1, j+ 1);
+>       result[i][j] = int.Parse(Console.ReadLine());
+>     }
+>   }
+> }
+> ```
+> - **Structures**
+>  ```cs
+>  struct Point{
+>    public int x;
+>    public int y;
+>  }
+>  ...
+>  Point p1; // = new Point(); set to default values.  
+>  p1.x = 14;
+>  p1.y = 9;
+>  ```
+> - **Enum**  
+>  ```cs
+>  enum NumberType{
+>    Odd = 1;
+>    Even = 2;
+>    Normal = 3;
+>  }
+>  ```
