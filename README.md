@@ -83,4 +83,37 @@
 > // Infinite Loops
 > for(;;){}
 > ```
+---  
+- L04: Functions  
+> Do While Loop  
+> when the you need the code to run at least once.  
+> ```cs
+> int total = 0;
+> int x;
+> do{
+>   Console.Write("Please Enter No:");
+>   x = int.Parse(Console.ReadLine());
+>   total += x;
+> }while(total < 100)
+> ```
+> While Loop  
+> Check first then loop  
+> ```cs
+> int total = 0;
+> int x;
+> while(total < 100){
+>   Console.Write("Please Enter No:");
+>   x = int.Parse(Console.ReadLine());
+>   total += x;
+> }
+> ```
+> - Functions  
+>  ```cs
+>  public static int Sum(int x, int y){
+>    int total = x + y;
+>    return total;
+>  }
+>  int nine = Sum(5, 4);
+>  ```
+>  *Recursion*  
 ---
