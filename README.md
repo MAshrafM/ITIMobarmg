@@ -129,3 +129,52 @@
 > }
 > ```
 ---
+- L06: Arrays  
+> *MagicBoxExample*
+> ```cs
+> public static bool PrintMagicBox(int size, int x, int y, int xFactor, int yFactor){
+>     bool devFlag = true;
+>     if(size%2 == 0){
+>       devFlag = false
+>     }
+>     else{
+>       devFlag = true;
+>       int row = 1;
+>       int col = size/2 + 1;
+>   
+>       for(int i = 1; i <= size * size; i++){
+>           Console.SetCursorPosition(col * xFactor + x, row * yFactor + y);
+>           Console.Write('{0}', i);
+>           if(i % size == 0){
+>             row++;
+>             if(row>size){row = 1;}
+>           }
+>           else{
+>             row--;
+>             if(row == 0){row = size;}
+>             col--;
+>             if(col == 0){col = size;}
+>           }
+>       }
+>    }
+>   return devFlag;
+> }
+> ```
+> - **Arrays**  
+> ```cs
+> public static int[] GetNumbersFromUser(int size){
+>     int[] result = new int[size];
+>     for(int i = 0; i < size; i++){
+>       ConsoleWrite("Please Enter data no {0}:", i+1);
+>       result[i] = int.Parse(Console.Readline());
+>     }
+>   return result;
+> }
+> 
+> public static void PrintNumbersToUser(int[] data, int size){
+>   for(int i =0; i < size; i++){
+>     Console.WriteLine(data[i]);
+>   }
+> }
+> ```
+---
