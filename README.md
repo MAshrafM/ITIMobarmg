@@ -217,3 +217,48 @@
 >    Normal = 3;
 >  }
 >  ```
+---  
+- L08: Classes and Namespaces
+> - **Class**
+> ```cs
+> // Employee.cs default internal 
+> public class Employee{
+>   public int code;
+>   public string name;
+>   public float salary;
+>   float bonus; // private use only in class itself
+> }
+> 
+> // EntryPoint
+> using System;
+> 
+> class EntryPoint{
+>   public static void Main(){
+>     Employee e = new Employee();
+>     e.code = 2122;
+>   }
+> }
+> ```
+> - **Namespace**
+> ```cs
+> // Employee.cs
+> namespace Office{}
+>   public class Employee{
+>     ...
+>   }
+> }
+> 
+> // EntryPoint
+> using System;
+> using Office;
+> class EntryPoint{
+>   public static void Main(){
+>     Employee e = new Employee();
+>     ...
+>   }
+> }
+> ```
+> - **String**  
+>  String and string are the same.  
+>  delimiter \0  
+---
