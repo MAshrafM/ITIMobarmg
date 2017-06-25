@@ -338,4 +338,16 @@
 > printArray(arr, 3, cols);
 > ```
 ---  
-
+- L12: Unsafe Pointers  
+>  - *params*
+> ```cs
+> public static int Sum(params int[] data){
+>   int result = 0;
+>   for(int i = 0; i < data.Length; i++){
+>     result += data[i];
+>   }
+>   return result;
+> }
+> ```
+> - default values
+---
