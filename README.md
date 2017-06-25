@@ -288,22 +288,54 @@
 >  Private and Shared Assemblies  
 >  Strongly Named Assemblies  
 > - Framework  
-> +---------------------------------+-------+  
-> |    VB | C++ | C# | JS | ...     |   V   |  
-> +---------------------------------+   i   |  
-> |  Common Language Specification  |   s   |  
-> +---------------------------------+   u   |  
-> |   ASP.NET   |   Windows Forms   |   a   |  
-> +---------------------------------+   l   |  
-> |  .NET Framework Base Classes    |   S   |  
-> |                                 |   t   |  
-> |   ADO.NET | XML | Threading     |   u   |  
-> |         NET | Security          |   d   |  
-> |      IO |Diagnostics| Etc.      |   i   |  
-> |                                 |   o   |  
-> +---------------------------------+   .   |  
-> |    Common Language Runtime      |   N   |  
-> +---------------------------------+   E   |  
-> |   Windows   |   COM+ Services   |   T   |  
-> +---------------------------------+-------+  
+> ```
+>          +---------------------------------+-------+  
+>          |    VB | C++ | C# | JS | ...     |   V   |  
+>          +---------------------------------+   i   |  
+>          |  Common Language Specification  |   s   |  
+>          +---------------------------------+   u   |  
+>          |   ASP.NET   |   Windows Forms   |   a   |  
+>          +---------------------------------+   l   |  
+>          |  .NET Framework Base Classes    |   S   |  
+>          |                                 |   t   |  
+>          |   ADO.NET | XML | Threading     |   u   |  
+>          |         NET | Security          |   d   |  
+>          |      IO |Diagnostics| Etc.      |   i   |  
+>          |                                 |   o   |  
+>          +---------------------------------+   .   |  
+>          |    Common Language Runtime      |   N   |  
+>          +---------------------------------+   E   |  
+>          |   Windows   |   COM+ Services   |   T   |  
+>          +---------------------------------+-------+  
+> ```
 ---  
+- L11: Pointers  
+> value of a pointer is an address.  
+> unsafe code.  
+> ```cs
+> static int** AllocIadArray(int rows, int* cols){
+>   int** result = (int**) Marshal.AllocHGlobal(rows * sizeof(int*) );
+>   for(int i = 0; i < rows; i++){
+>     result[i] = (int*)Marshal.AllocHGlobal(cols[i]*sizeof(int));
+>   }
+>   return result;
+> }
+> 
+> static void printArray(int** arr, int rows, int* cols){
+>   for(int i =0; i < rows; i++){
+>     for(int j =0; j < cols[i]; j++){
+>       Console.WriteLine(arr[i][j]);
+>     }
+>   }
+> }
+> 
+> int*cols = (int*) Marshal.AllocHGlobal(3*sizeof(int));
+> cols[0] = 3;
+> cols[1] = 5;
+> cols[2] = 7;
+> 
+> int** arr = AllocIadArray(3, cols);
+> printArray(arr, 3, cols);
+> ```
+---  
+
