@@ -262,3 +262,18 @@
 >  String and string are the same.  
 >  delimiter \0  
 ---
+- L09: Variables and Nullable  
+>  - **Variables**
+>  Get its type on initialization  
+>  var x = 3; // x is int  
+>  var y = 5.5 // y is float  
+>  var z = {id = 2m name = "M"} // Anon. type  
+> - Dynamic type  
+>  get its type at the run after the compilation  
+>  *dynamix x = "hi";*  
+> - **Nullable**  
+>  value type can not take a null, reference types can  
+>  nullable types ex: *int? x = null;*  
+>  int y = x??0; // if x is null then y = 0;  
+> - Implicit/Explicit Casting, Boxing/Unboxing  
+---
