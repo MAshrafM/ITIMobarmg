@@ -277,3 +277,33 @@
 >  int y = x??0; // if x is null then y = 0;  
 > - Implicit/Explicit Casting, Boxing/Unboxing  
 ---
+- L10: Assembly and Framework
+> - Executables  
+>  *PE32 || PE32+* header for 32bit || 64bit version of windows, also indicate the type of file GUI CUI DLL and contains a timestamp for the build.  
+>  *CLR* header contains version of the CLR required, the entry point required (Main Method) and the location/size of the module metadata, resources.  
+>  *Metadata* .NET module contains metdata which describes each and every type defined in the binary as well as the members of each type.  
+> - Assembly  
+>  Manifest  
+>  Single file and Multi-File Assemblies
+>  Private and Shared Assemblies  
+>  Strongly Named Assemblies  
+> - Framework  
+> +---------------------------------+-------+  
+> |    VB | C++ | C# | JS | ...     |   V   |  
+> +---------------------------------+   i   |  
+> |  Common Language Specification  |   s   |  
+> +---------------------------------+   u   |  
+> |   ASP.NET   |   Windows Forms   |   a   |  
+> +---------------------------------+   l   |  
+> |  .NET Framework Base Classes    |   S   |  
+> |                                 |   t   |  
+> |   ADO.NET | XML | Threading     |   u   |  
+> |         NET | Security          |   d   |  
+> |      IO |Diagnostics| Etc.      |   i   |  
+> |                                 |   o   |  
+> +---------------------------------+   .   |  
+> |    Common Language Runtime      |   N   |  
+> +---------------------------------+   E   |  
+> |   Windows   |   COM+ Services   |   T   |  
+> +---------------------------------+-------+  
+---  
