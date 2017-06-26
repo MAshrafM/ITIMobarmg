@@ -171,6 +171,32 @@
 >  public static explicit operator int(Complex c){ return c.real; }
 > }
 > ```
-
+- L04: Operator Overloading  
+> Continue Complex Class Operators  
+> ```cs
+>  ...
+>   public static bool operator >(Complex c1, Complex c2){
+>     bool result = false;
+>     double pC1 = Math.Sqrt(c1.real ^ 2 + c1.imag ^ 2);
+>     double pC2 = Math.Sqrt(c2.real ^ 2 + c2.imag ^ 2);
+>     if(pC1 > pC2){result = true;}
+>     return result;
+>   }
+>   public static bool operator >=(Complex c1, Complex c2){
+>     bool result = false;
+>     if(c1 > c2 || (c1.real == c2.real && c1.imag == c2.imag)){result = true;}
+>    return result;
+>   }
+>   public static bool operator <(Complex c1, Complex c2){
+>     bool result = false;
+>     if(c2 > c1){result = true;}
+>     return result;
+>   }
+>   public static Complex operator ++(Complex c){
+>     return new Complex(c.real+1, c.imag);
+>   }
+> ```  
+> - *Single Tone Design Pattern*  
+---
 
 
