@@ -239,6 +239,7 @@
 > class Room{
 >   Wall w1;
 >   Wall w2;
+>   Instructor[] instructors;
 >   
 >   public Wall w1{
 >     get { return w1; }
@@ -249,15 +250,51 @@
 >     set{ if(value != null){ w2 = value }}
 >   }
 >   
->   public Room(float w1Width, float w1Height, float w1Thick, float w2Width, float w2Height, float w2Thick){
+>   public Room(float w1Width, float w1Height, float w1Thick, float w2Width, float w2Height, float w2Thick, params Instructor[] _instructors){
 >     w1 = new Wall(w1Width, w1Height, w1Thick);
 >     w2 = new Wall(w2Width, w2Height, w2Thick);
+>     instructors = _instructors;
 >   }
->   public Room(float w1Width, float w1Height, float w2Width, float w2Height){
+>   public Room(float w1Width, float w1Height, float w2Width, float w2Height, params Instructor[] _instructors){
 >     w1 = new Wall(w1Width, w1Height);
 >     w2 = new Wall(w2Width, w2Height);
+>     instructors = _instructors;
 >   }
->   public Room(Wall _w1, Wall _w2):this(_w1.Width, _w1.Height, _w1Thick, _w2.Width, _w2.Height, _w2.Thick)
+>   public Room(Wall _w1, Wall _w2):this(_w1.Width, _w1.Height, _w1Thick, _w2.Width, _w2.Height, _w2.Thick, null)
+>   public Room(Room r):this(new Wall(r.w1), new Wall(r.w2))
+> }
+>   Public Room Clone(){ return new Room(this); }
+> ```
+---
+- L06: Inheritance  
+> ```cs
+> class Instructor{
+>   private int id;
+>   Room room;
+>   
+>   public int Id{
+>     get{return id;}
+>     set{id = value;}
+>   }
+>   internal Room Room{
+>     get {return room;}
+>     set {room = value;}
+>   }
+>   public string Name{ get; set; }
+>   public Instructor(int id, string name, Room room){
+>     this.id = id;
+>     this.Name = name;
+>     this room = room;
+>   }
+>   public Instructor():this(default(int), null, null)
+>   public Instructor(Instructor i):this(i.id, i.Name, i.room)
+>   public Instructor Clone(){return new Instructor(this);}
 > }
 > ```
+> - *Inheritance*  
+>  All classes inherent from Object.  
+>  protected on parent acts as public only on childreen and private otherwise.  
+> - Classes types (conceret, sealed, abstract, static, partial, inner)  
+>  *sealed* prevent class to inherent from it  
+>  *abstract* cannor be instantiated.  
 ---
