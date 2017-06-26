@@ -104,4 +104,73 @@
 >   }
 > }
 > ```
+- L03: Encapsulation  
+> *this* pointer  
+> *this* chaining on constructors.  
+> ```cs
+> class Point{
+>   int x;
+>   int y;
+>   public int GetX { return x; }
+>   public int SetX(int x) { this.x = x; }
+>   public Point(int x, int y){
+>     this.x = x;
+>     this.y = y;
+>   }
+>   public Point():this(0,0)
+>   public Point(int no):this(no,no)
+>   ~Point(){ ... }
+> }
+> ```
+> *property*  
+> *static*, is not available in every object just in the class itself, static constructor is what called first with the first encounter with class.  
+> ```cs
+> class Complex{
+>   int real;
+>   int imag;
+>   static int count;
+>   // Properties
+>   public int Real{
+>     set{ real = value; }
+>     get{ return real; }
+>   } 
+>   public int Imag{ 
+>     set{ imag = value; }
+>     get{ return imag; }
+>   } 
+>   public static int Count{
+>     get{ return count;}
+>   }
+>   // Constructors
+>   public Complex(int real, int imag){
+>     this.real = real;
+>     this.imag = imag;
+>     count++;
+>   }
+>   public Complex(int _real):this(_real, 0){}
+>   static Complex(){ count = 0; }
+>  //Methods
+>  /// Complex x = Complex..Add(c1, c2);
+>  public static Complex Add(Complex c1, Complex c2){
+>    return new Complex(c1.real + c2.real, c1.imag + c2.imag);
+>  }
+>  //operator overloading
+>  /// Complex x = c1 - c2 - c3 - c4 ;
+>  public static Complex operator-(Complex c1, Complex c2){
+>    return new Complex(c1.real - c2.real, c1.imag - c2.imag);
+>  }
+>  public static Complex operator-(Complex c1, int no){
+>    return new Complex(c1.real - no, c1.imag);
+>  }
+>  // using the same function above ^ to avoid repeating
+>  public static Complex operator-(int no, Complex c1){
+>    return new c1 + no;
+>  }
+>  // cast to complex implicit/explicit
+>  public static implicit operator Complex(int no){ return new Complex(no);}
+>  public static explicit operator int(Complex c){ return c.real; }
+> }
+> ```
+
+
 
