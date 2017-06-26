@@ -34,3 +34,74 @@
 >   }
 > }
 > ```
+---
+- L02: Classes and Objects  
+> - *Queue* FIFO
+> ```cs
+> class Queue{
+>   int[] data;
+>   int size;
+>   int count;
+>   int toq;
+>   int eoq;
+>   
+>   public int Getsize(){ return size; }
+>   public int GetCount(){ return count; }
+>   public bool SetSize(int _size){
+>     bool result = false;
+>     if(_size >= count){
+>       result = true;
+>         Queue temp = new Queue(_size);
+>         int no;
+>         while(t = dequeue() != null){
+>           temp.push(t);
+>         }
+>         size = temp.size;
+>         toq = temp.toq;
+>         eoq = temp.eoq;
+>         count = temp.count;
+>         data = temp.data;
+>     }
+>     return result;
+>   }
+>   public Queue(int _size){
+>     data = new int[_size];
+>     size = _size;
+>     toq = 0;
+>     eoq = 0;
+>     count = 0;
+>   }
+>   
+>   public Queue(){
+>     data = new int[10];
+>     size = 10;
+>     toq = 0;
+>     eoq = 0;
+>     count = 0;
+>   }
+>   
+>   public bool enqueue(int no){
+>     bool result = false;
+>     if(count < size){ 
+>       data[eoq] = no;
+>       result = true;
+>       eoq++;
+>       if(eoq == size){ eoq = 0; }
+>       count++;
+>     }
+>     return result;
+>   }
+>   
+>   public int? dequeue(){
+>     int result = null;
+>     if (count > 0){
+>       result = data[toq];
+>       toq++;
+>       if(toq == size){ toq = 0; }
+>       count--;
+>     }
+>     return result;
+>   }
+> }
+> ```
+
