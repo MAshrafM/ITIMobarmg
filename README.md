@@ -198,5 +198,66 @@
 > ```  
 > - *Single Tone Design Pattern*  
 ---
-
-
+- L05: Constructors
+> Relations between classes (Composition, Aggregation, Associations, Inheritance, InnerClass) 
+> **Composition** 
+> ```cs
+> class Wall{
+>   float width;
+>   float height;
+>   float thick;
+>   
+>   public float Width{
+>     get { return width; }
+>     set { width = value; }
+>   }
+>   public float Height{
+>     get { return height; }
+>     set { height = value; }
+>   }
+>   public float Thick{
+>     get { return thick; }
+>     set { thick = value; }
+>   }
+>   
+>   public Wall(float _width, float _height, float _thick){
+>     width = _width;
+>     height = _height;
+>     thick = _thick;
+>   }
+>   public Wall(float _width, float _height):this(_width, _height, 0.25f);
+>   public Wall(float _width):this(_width, 2.6f, 0.25f);
+>   //Copy Constructor
+>   public Wall(Wall w):this(w.width, w.height, w.thick)
+>   //Clone
+>   public Wall Clone(){
+>     return new Wall(this);
+>   }
+>   
+> }
+> 
+> class Room{
+>   Wall w1;
+>   Wall w2;
+>   
+>   public Wall w1{
+>     get { return w1; }
+>     set{ if(value != null){ w1 = value }}
+>   }
+>   public Wall w2{
+>     get { return w2; }
+>     set{ if(value != null){ w2 = value }}
+>   }
+>   
+>   public Room(float w1Width, float w1Height, float w1Thick, float w2Width, float w2Height, float w2Thick){
+>     w1 = new Wall(w1Width, w1Height, w1Thick);
+>     w2 = new Wall(w2Width, w2Height, w2Thick);
+>   }
+>   public Room(float w1Width, float w1Height, float w2Width, float w2Height){
+>     w1 = new Wall(w1Width, w1Height);
+>     w2 = new Wall(w2Width, w2Height);
+>   }
+>   public Room(Wall _w1, Wall _w2):this(_w1.Width, _w1.Height, _w1Thick, _w2.Width, _w2.Height, _w2.Thick)
+> }
+> ```
+---
