@@ -315,3 +315,12 @@
 > When a derived class inherits from a base class, it gains all the methods, fields, properties and events of the base class. The designer of the derived class can choose whether to: override virtual members in the base class, inherit the closest base class method without overriding it; define new non-virtual implementation of those members that hide the base class implementations.  
 > Polymorphism is often referred to as the third pillar of object-oriented programming, after encapsulation and inheritance.  
 --- 
+- L10: Intrface  
+> An interface is defined as a syntactical contract that all the classes inheriting the interface should follow.  
+> Interfaces contain only the declaration of the members. It is the responsibility of the deriving class to define the members. It often helps in providing a standard structure that the deriving classes would follow.  
+> Abstract classes to some extent serve the same purpose, however, they are mostly used when only few methods are to be declared by the base class and the deriving class implements the functionalities.  
+> Implicit/Explicit implementation.  
+> - Exceptions  
+>  *throw*  
+>  *try{} catch{}*  
+---
