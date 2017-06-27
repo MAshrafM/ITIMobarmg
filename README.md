@@ -31,6 +31,7 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 ---  
 - L03: Stacks: Array-based Implementation I  
 > ```c
+> //Implementation Level
 > typedef struct stack{
 >   int top;
 >   StackEntry entry[MAXSTACK];
@@ -43,7 +44,7 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > void Push(StackEntry e, Stack *ps){
 >   ps->entry[ps->top++] = e;
 > }
-> 
+> // User Level
 > void main{
 >   StackEntry e;
 >   Stack s;
@@ -56,6 +57,7 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 - L04: Stacks: Array-based Implementation II  
 > It could be StackFull(s) but this wastes memory and time of copying.  
 > ```c
+> //Implementation Level
 > ...
 > int StackFull(Stack *ps){
 >   return ps->top >= MAXSTACK;
@@ -64,21 +66,22 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > void Pop(StackEntry *pe, Stack *ps){
 >   *pe = ps->entry[--ps->top];
 > }
-> int StackEmpty(*ps){
+> int StackEmpty(Stack *ps){
 >   return !ps->top;
 > }
 > 
-> void Pop(StackEntry *pe, Stack *ps){
+> void Top(StackEntry *pe, Stack *ps){
 >   *pe = ps->entry[ps->top - 1];
 > }
 > 
-> int StackSize(*ps){
+> int StackSize(Stack *ps){
 >   return ps->top;
 > }
 > 
 > void ClearStack(Stack *ps){
 >   ps->top = 0;
 > }
+> //User Level
 > void main(){
 >   ...
 >   if(!StackFull(&s)){Push(e, &s);}
@@ -88,3 +91,46 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >   ClearStack(&s);
 > }
 > ``` 
+- L05: Stacks: Array-based Implementation III  
+> ```c
+> //implementation level
+> ...
+> void TraverseStack(Stack *ps, void(*pf)(StackEntry)){
+>   for(int i = ps->top; i > 0; i--){
+>     (*pf)(ps->entry[i-1]);
+>   }
+> }   
+> void main(){
+>   ...
+>   TraverseStack(&s, &Display);
+> }
+> //user level
+> void Display(StackEntry e){
+>   printf("e is: %d\n", e);
+> }
+> // if stack top was not implemented on the implementation level.  
+> void StackTop(StackEntry *pe, Stack *ps){
+>   Pop(pe, ps);
+>   Push(*pe, ps);
+> }
+> ```
+> **Notes** StackEntry and MAXSTACK should be defined in the User Level because they concern the user, Also they have to be defined in the implementation level because they are referenced in Stack.cpp; then they have to be defined in Stack.h which is included in both Stack.cpp and the user main file.  
+> ```c
+> /***** Stack.h *******/
+> #define MAXSTACK 100
+> typedef struct stack{
+>   int top;
+>   StackEntry entry[MAXSTACK];
+> }Stack;
+>
+> void Push(StackEntry, Stack *);
+> void Pop(StackEntry *, Stack *);
+> int StackEmpty(Stack *);
+> int StackFull(Stack *);
+> void CreateStack(Stack *);
+> void Top(StackEntry *, Stack *);
+> int StackSize(Stack *);
+> void ClearStack(Stack *);
+> void TraverseStack(Stack *, void(*)(StackEntry));
+> ```
+---  
