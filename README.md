@@ -5,7 +5,7 @@
 ## Object Oriented Programming Track  
   
 - L01: Introduction  
-> - Content(Abstraction Encapsulation, Polymorphorphism,  Inheritance)  
+> - Content(Abstraction Encapsulation, Polymorphism,  Inheritance)  
 > - *class*
 >  Make Every class in a seperate file.
 >  Do not set public on a prop. use setter/getter  
@@ -310,3 +310,8 @@
 > An abstract member cannot be static.
 > An abstract method cannot have the modifier virtual. Because an abstract method is implicitly virtual.  
 ---  
+- L09: Polymorphism  
+> In C#, every type is polymorphic because all types, including user-defined types, inherit from Object.  
+> When a derived class inherits from a base class, it gains all the methods, fields, properties and events of the base class. The designer of the derived class can choose whether to: override virtual members in the base class, inherit the closest base class method without overriding it; define new non-virtual implementation of those members that hide the base class implementations.  
+> Polymorphism is often referred to as the third pillar of object-oriented programming, after encapsulation and inheritance.  
+--- 
