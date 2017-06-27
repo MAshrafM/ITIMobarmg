@@ -323,4 +323,53 @@
 > - Exceptions  
 >  *throw*  
 >  *try{} catch{}*  
----
+---  
+- L11: Generics  
+> Generics introduce to the .NET Framework the concept of type parameters, which make it possible to design classes and methods that defer the specification of one or more types until the class or method is declared and instantiated by client code.  
+> ```cs
+> class Stack<S>{
+>   S[] arr;
+>   int size;
+>   int tos;
+>   
+>   public int Size{
+>     get{ return size;}
+>     set {
+>       if(value >= tos){
+>         S[] temp = new S[value];
+>         for(int i =0; i  tos; i++){
+>           temp[i] = arr[i];
+>         }
+>         arr = temp;
+>         size = value;
+>       }
+>       else{
+>         throw new Exception("Size is too small");    
+>       }
+>     }
+>   }
+>   public Stack(size){
+>     arr = new S(size);
+>     tos = 0;
+>     this.size = size;
+>   }
+>   public Stack():this(10);
+>   public void Push(S no){
+>     if(tos < size){
+>       arr[tos] = no;
+>       tos++;
+>     }
+>   }
+>   public S Pop(){
+>     S result;
+>     if(tos > 0){
+>       tos--;
+>       result = arr[tos];
+>     }
+>     else{
+>       throw new IndexOutOfRangeException();
+>     }
+>     return result;
+>   }
+> }
+> ```
