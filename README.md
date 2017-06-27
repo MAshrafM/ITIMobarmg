@@ -298,3 +298,9 @@
 >  *sealed* prevent class to inherent from it  
 >  *abstract* cannor be instantiated.  
 ---
+- L07: Inheritance 2  
+> *hiding*: having a method in the child with the same name as in the parent; to call the parent method from the child you *base.* it.   
+> *override*: child method override methods with the same name and *virtual* modifier in the parent.  
+> Dynamic Binding.  
+---
+
