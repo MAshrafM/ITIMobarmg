@@ -52,3 +52,39 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > }
 > ```
 > It is not a good idea nor professional to handle exception with print statment on the implementation level.  
+---  
+- L04: Stacks: Array-based Implementation II  
+> It could be StackFull(s) but this wastes memory and time of copying.  
+> ```c
+> ...
+> int StackFull(Stack *ps){
+>   return ps->top >= MAXSTACK;
+> }
+> 
+> void Pop(StackEntry *pe, Stack *ps){
+>   *pe = ps->entry[--ps->top];
+> }
+> int StackEmpty(*ps){
+>   return !ps->top;
+> }
+> 
+> void Pop(StackEntry *pe, Stack *ps){
+>   *pe = ps->entry[ps->top - 1];
+> }
+> 
+> int StackSize(*ps){
+>   return ps->top;
+> }
+> 
+> void ClearStack(Stack *ps){
+>   ps->top = 0;
+> }
+> void main(){
+>   ...
+>   if(!StackFull(&s)){Push(e, &s);}
+>   if(!StackEmpty(&s)){Pop(&e, &s);}
+>   if(!StackEmpty(&s)){StackTop(&e, &s);}
+>   x = StackSize(&s);
+>   ClearStack(&s);
+> }
+> ``` 
