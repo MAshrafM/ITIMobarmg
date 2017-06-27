@@ -303,4 +303,10 @@
 > *override*: child method override methods with the same name and *virtual* modifier in the parent.  
 > Dynamic Binding.  
 ---
-
+- L08: Abstraction
+> An abstract class means that, no object of this class can be instantiated, but can make derivations of this.  
+> An abstract class cannot be a sealed class.  
+> An abstract method cannot be private.  
+> An abstract member cannot be static.
+> An abstract method cannot have the modifier virtual. Because an abstract method is implicitly virtual.  
+---  
