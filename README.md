@@ -70,7 +70,7 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >   return !ps->top;
 > }
 > 
-> void Top(StackEntry *pe, Stack *ps){
+> void StackTop(StackEntry *pe, Stack *ps){
 >   *pe = ps->entry[ps->top - 1];
 > }
 > 
@@ -91,6 +91,7 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >   ClearStack(&s);
 > }
 > ``` 
+---  
 - L05: Stacks: Array-based Implementation III  
 > ```c
 > //implementation level
@@ -134,3 +135,56 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > void TraverseStack(Stack *, void(*)(StackEntry));
 > ```
 ---  
+- L06: Stacks: Linked-based Implementation I  
+> *type definition*  
+> diffrentiate between stacknode and stack to make logical distinction between the stack itself and its top which points to the node. and for upgradability.  
+> ```c
+> typdef struct stacknode{
+>   SrackEntry entry;
+>   struct stacknode next;
+> }StackNode;
+> 
+> typdef struct stack{
+>   StackNode *top;
+> }Stack;
+> 
+> // Implementation Level
+> void CreateStack(Stack *ps){
+>   ps->top = NULL; // Null defined in <stdlin.h>
+> }
+> 
+> void Push(SrackEntry e, Stack *ps){
+>   StackNode *pn = (StackNode*)malloc(sizeof(StackNode));
+>   pn->entry = e;
+>   pn->next = ps->top;
+>   ps->top = pn;
+> }
+> 
+> void Pop(StackEntry *pe, Stack *ps){
+>   StackNode *pn;
+>   *pe = ps->top->entry;
+>   pn = ps->top
+>   ps->top = ps->top->next;
+>   free(pn); 
+> }
+> void  StackTop(StackEntry *pe, Stack *ps){
+>   *pe = ps->top->entry;
+> }
+> int StackEmpty(Stack *ps){
+>   return !ps->top;
+> }
+> int StackFull(Stack *ps){
+>   return 0;
+> }
+> 
+> // User Level
+> 
+> void main(){
+>   Stack s;
+>   CreateStack(&s);
+>   Push(e, &s);
+>   Pop(&e, &s);
+>   StackTop(&e, &s)
+> }
+> ```
+---
