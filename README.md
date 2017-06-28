@@ -146,11 +146,13 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > 
 > typdef struct stack{
 >   StackNode *top;
+>   //int size;
 > }Stack;
 > 
 > // Implementation Level
 > void CreateStack(Stack *ps){
 >   ps->top = NULL; // Null defined in <stdlin.h>
+>   //size = 0;
 > }
 > 
 > void Push(SrackEntry e, Stack *ps){
@@ -158,6 +160,7 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >   pn->entry = e;
 >   pn->next = ps->top;
 >   ps->top = pn;
+>   //size++;
 > }
 > 
 > void Pop(StackEntry *pe, Stack *ps){
@@ -166,6 +169,7 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >   pn = ps->top
 >   ps->top = ps->top->next;
 >   free(pn); 
+>   size--;
 > }
 > void  StackTop(StackEntry *pe, Stack *ps){
 >   *pe = ps->top->entry;
@@ -187,4 +191,34 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >   StackTop(&e, &s)
 > }
 > ```
+---
+- L06: Stacks: Linked-based Implementation II  
+> ```c
+> void ClearStack(Stack *ps){
+>   StackNode *pn = ps->top;
+>   while(pn){
+>     pn = pn->next;
+>     free(ps->top);
+>     ps->top = pn;
+>   }  
+>   // size = 0;
+> }
+> 
+> void TraverseStack(Stack *ps, void(*pf)(SrackEntry)){
+>   StackNode *pn = ps->top;
+>   while(pn){
+>     (*pf)(pn->entry);
+>     pn = pn->next;
+>   }
+>   //for(SrackNode *pn = ps->top; pn; pn = pn->next){(*pf)(pn->entry);}
+> }
+> int StackSize(Stack *ps){
+>   int x;
+>   StackNode *pn = ps->top;
+>   for(x = 0; pn; pn = pn->next){ x++; }
+>   return x;
+>   // retrun ps->size;
+> }
+> ```
+> Which is better (Array-based || Linked-based) ? is a wrong question. Know very well the pros and cons of each implementation and decided based on your application needs.  
 ---
