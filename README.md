@@ -292,3 +292,102 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > }
 > ```
 ---  
+- L09: Stacks application: Polish Notation  
+> Convert from infix to postfix
+> ```c
+> void InfixToPostfix(char infix[], char postfix[]){
+>   int i,j;
+>   char op, c;
+>   Stack s;
+>   CreateStack(&s);
+>   for(i = 0; j = 0; (c = infix[i])!= '\0'; i++){
+>     if(IsDigit(c)){ postfix[j++] = c; }
+>     else{
+>       if(!StackEmpty(&s)){
+>         StackTop(&op, &s);
+>         while(!StackEmpty(&s) && Precedent(op, c)){
+>           Pop(&op, &s);
+>           postfix[j++] = op;
+>           if(!StackEmpty(&s)){ StackTop(&op, &s); }
+>         }
+>       }
+>       Push(c, &s);
+>     }
+>   }
+>   while(!StackEmpty(&s)){
+>     Pop(&op, &s);
+>     postfix[j++] = op;
+>   }
+>   postfix[j] = '\0';
+> }
+> 
+> int isDigit(char c){
+>   return(c>='0' && c<= '9');
+> }
+> 
+> int Precedent(char op1, char op2){
+>   if(op1 == '$') return 1;
+>   if((op1 == '*') || (op1 == '/')) return (op2!='$');
+>   if((op1 == '+') || (op1 == '-')) return ( (op2!='$')&&(op2!='*')&&(op2!='/') );
+>   return 0;
+> }
+> 
+> void main(){
+>   char infix[]= "1+2*3$4/5+6";
+>   char postfix[8];
+>   InfixToPostfix(infix, postfix);
+>   printf("\n %s", postfix);
+>   getch();
+> }
+> /**********/
+> double EvaluatePostfix(char expr[]){
+>   int i;
+>   char c;
+>   double op1, op2, val;
+>   Stack s;
+>   CreateStack(&s);
+>   for(i = 0; (c = expr[i])!='\0'; i++){
+>     if(IsDigit(c)){
+>       Push((double)(c-'0'), &s);
+>     }
+>     else{
+>       Pop(&op2, &s);
+>       Pop(&op1, &s);
+>       val = Oper(c, op1, op2);
+>       Push(val, &s);
+>     }
+>   }
+>   Pop(&val, &s);
+>   return val;
+> }
+> double Oper(char c, double op1, double op2){
+>   switch(c){
+>     case '+': return (op1+op2);
+>     case '-': return (op1-op2);
+>     case '*': return (op1*op2);
+>     case '/': return (op1/op2);
+>     case '$': return (pow(op1,op2));
+>   }
+> }
+> ```
+> *Notes* We can not use InfixToPostfix and EvaluatePostfix in the same program because of different Element types. thus a sol is by preprocessing for now!  
+> ```c
+>   /* Stack.h */
+>   //#define INFIX_TO_POSTFIX
+>   #define EVALUATE_POSTFIX
+>   
+>   #ifdef INFIX_TO_POSTFIX
+>     typedef char ElementType;
+>     #define MAXELEMENTS 100
+>     typdef ElementType StackEntry;
+>     #define MAXSTACK MAXELEMENTS
+>   #endif
+>   
+>   #ifdef EVALUATE_POSTFIX
+>     typedef double ElementType;
+>     #define MAXELEMENTS 100
+>     typdef ElementType StackEntry;
+>     #define MAXSTACK MAXELEMENTS
+>   #endif
+> ```  
+---  
