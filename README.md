@@ -210,7 +210,7 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >     (*pf)(pn->entry);
 >     pn = pn->next;
 >   }
->   //for(SrackNode *pn = ps->top; pn; pn = pn->next){(*pf)(pn->entry);}
+>   //for(StackNode *pn = ps->top; pn; pn = pn->next){(*pf)(pn->entry);}
 > }
 > int StackSize(Stack *ps){
 >   int x;
@@ -221,4 +221,74 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > }
 > ```
 > Which is better (Array-based || Linked-based) ? is a wrong question. Know very well the pros and cons of each implementation and decided based on your application needs.  
----
+---  
+- L08: Stacks application: Recursion.  
+> The great importance of stacks is OS.  
+> *Tower of Hanoi*
+> ```c
+> void MoveDisks(int count, int start, int finish, int temp){
+>   /*Pre:
+>     - There are at least count disks in the tower start.
+>     - The top disk on each of towers temp and finish is larger than any of the top count disks on tower start.
+>   Post: 
+>     - The top count disks on start have been moved to finish;
+>     - temp (used for temporary storage) has been returned to its starting position
+>   */
+>   if(count > 0){
+>     MoveDisks(count - 1, start, temp, finish);
+>     printf("Move disk %d from %d to %d\n", count, start, finish);
+>     MoveDisks(count - 1, temp, finish, start);
+>   }
+> }
+> ```
+> There are some cases in which solving the problem iteratively is better if the iterative algorithm does not need a stack. Hence solving it recursively builds an unnecessarily stack; which wastes memory and time consumed in function return.  
+> ```c
+> // Factorial iteratively
+> int Factorial(int n){
+>   //it is better to return a double instead of int
+>   int count, product;
+>   for(product = 1, count = 2; count <= n; count++){ product *= count; }
+>   return product;
+> }
+> // Factorial recursively, not needed
+> int Factorial(int n){
+>   return ( n == 0) ? 1 : (n*Factorial(n-1));
+> }
+> // Fibonacci recursively O(c^n)
+> int Fibonacci(int n){
+>   if(n <= 0){ return 0;}
+>   else if(n == 1){ return 1;}
+>   else return Fibonacci(n-1) + Fibonacci(n-2);
+> }
+> // Fibonacci iteratively O(n)
+> int Fibonacci(int n){
+>   int i, twoback, oneback, current;
+>   if(n <= 0){ return 0; }
+>   else if(n == 1){ return 1; }
+>   else{
+>     twoback = 0;
+>     oneback = 1;
+>     for(i = 2; i <= n; i++){
+>       current = twoback + oneback;
+>       twoback = oneback;
+>       oneback = current;
+>     }
+>     return current;
+>   }
+> }
+> ```
+> Tail Recursion: Last statment in a function is a call to itself. *if a tail recursion occur then it can be replaced by an iteration.
+> ```c
+> void MoveDisks(int count, int start, int finish, int temp){
+>   int swap;
+>   while(count > 0){
+>     MoveDisks(count - 1, start, temp, finish);
+>     printf("Move disk %d from %d to %d\n", count, start, finish);
+>     count--;
+>     swap = start;
+>     start = temp;
+>     temp = swap;
+>   }
+> }
+> ```
+---  
