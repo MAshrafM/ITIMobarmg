@@ -139,12 +139,12 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > *type definition*  
 > diffrentiate between stacknode and stack to make logical distinction between the stack itself and its top which points to the node. and for upgradability.  
 > ```c
-> typdef struct stacknode{
+> typedef struct stacknode{
 >   SrackEntry entry;
 >   struct stacknode next;
 > }StackNode;
 > 
-> typdef struct stack{
+> typedef struct stack{
 >   StackNode *top;
 >   //int size;
 > }Stack;
@@ -444,11 +444,11 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 ---  
 - L11: Queues: Linked-based Implementation  
 > ```c 
-> typdef struct queuenode{
+> typedef struct queuenode{
 >   QueueEntry entry;
 >   struct queuenode *next;
 > }QueueNode;
-> typdef struct queue{
+> typedef struct queue{
 >   QueueNode *front;
 >   QueueNode *rear;
 >   int size;
@@ -504,4 +504,28 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >   } 
 > }
 > ```  
----
+---  
+- L12: Abstraction & Implementation-Related Issues  
+> To use a queue, stack and other data structure with the same element type in the same program. define this common file in a seperate file *.h  
+> ```c
+> //Global.h
+> #ifndef GLOBAL H
+> #define GLOBAL H 
+> typedef struct elementtype{
+>   int year;
+>   float age;
+>   int tmp;
+> }ElementType;
+> 
+> #define MAXELEMENTS 100
+> 
+> typedef ElementType QueueEntry;
+> #define MAXQUEUE MAXELEMENTS
+> 
+> typedef ElementType StackEntry;
+> #define MAXSTACK MAXELEMENTS
+> #endif
+> ```
+> then include *Global.h* in Stack.h and Queue.h  and both are included in Stack.cpp and Queue.cpp  
+> Using Unions, pointer to pointer in stacks, Templetes for different type C++  
+---  
