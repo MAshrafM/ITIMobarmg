@@ -428,7 +428,7 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > int QueueSize(Queue *pq){
 >   return pq->size;
 > }
-> void CreateQueue(Queue *pq){
+> void ClearQueue(Queue *pq){
 >   pq->front = 0;
 >   pq->rear = -1;
 >   pq->size = 0;
@@ -442,3 +442,66 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > }
 > ```
 ---  
+- L11: Queues: Linked-based Implementation  
+> ```c 
+> typdef struct queuenode{
+>   QueueEntry entry;
+>   struct queuenode *next;
+> }QueueNode;
+> typdef struct queue{
+>   QueueNode *front;
+>   QueueNode *rear;
+>   int size;
+> }Queue;
+> 
+> void CreateQueue(Queue *pq){
+>   pq->front = NULL;
+>   pq->rear = NULL;
+>   pq->size = 0;
+> }
+> int Append(QueueEntry e, Queue *pq){
+>   QueueNode *pn = (QueueNode*)malloc(sizeof(QueueNode));
+>   // do this also for Stacks to check for exhausted memory after malloc
+>   if(!pn){return 0;}
+>   else{
+>     pn->next = NULL;
+>     pn-entry = e;
+>     if(!pq->rear){pq->front = pn;}
+>     else{pq->rear->next = pn;}
+>     pq->rear = pn;
+>     pq->size++;
+>   }
+> }
+> void Serve(QueueEntry *pe, Queue *pq){
+>   QueueNode *pn = pq->front;
+>   *pe = pn->entry;
+>   pq->front = pn->next;
+>   free(pn);
+>   if(!pq->front){pq->rear = NULL;}
+>   pq->size--;
+> }
+> int QueueEmpty(Queue *pq){
+>   retrun !pq->size
+> }
+> int QueueFull(Queue *pq){
+>   return 0;
+> }
+> int QueueSize(Queue *pq){
+>   return pq->size;
+> }
+> void ClearQueue(Queue *pq){
+>   while(pq->front){
+>     pq->rear = pq->front->next;
+>     free(pq->front);
+>     pq->front = pq->rear;
+>   }
+>   pq->size = 0;
+> }
+> void TraverseQueue(Queue *pq, void(*pf)(QueueEntry)){
+>   int pos, s;
+>   for(QueueNode *pn = pq->front; pn; pn = pn->next){
+>     (*pf)(pq->entry);
+>   } 
+> }
+> ```  
+---
