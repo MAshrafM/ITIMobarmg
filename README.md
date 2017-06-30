@@ -529,3 +529,73 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > then include *Global.h* in Stack.h and Queue.h  and both are included in Stack.cpp and Queue.cpp  
 > Using Unions, pointer to pointer in stacks, Templetes for different type C++  
 ---  
+- L13: Lists: Array-based Implementation.
+> *General Lists* new values are added in position determined by the user.  
+> It is a list of elements of type T is a finite sequence of elements of T together with the following operations: (create, determine empty or full, find size, insert new entry in position 0<= p <= size, deleter entry from position 0<=p<=size-1, traverse and clear)  
+> ```c 
+> // List.h
+> #include "Global.h"
+> typedef struct list{
+>   ListEntry entry[MAXLIST];
+>   int size;
+> }List;
+> void CreateList(List *);
+> int ListEmpty(List *);
+> int ListFull(List *);
+> int ListSize(List *);
+> void DestroyList(List *);
+> void InsertList(int, ListEntry, List *);
+> void DeleteList(int, ListEntry *, List *);
+> void TraverseList(List *, void (*Visit)(ListEntry));
+> void RetrieveList(int, ListEntry *, List *);
+> void ReplaceList(int, ListEntry, List *);
+> /**********/
+> 
+> void CreateList(List *pl){
+>   pl->size = 0;
+> }
+> int ListEmpty(List *pl){
+>   return !pl->size;
+> }
+> int ListFull(List *pl){
+>   return pl->size == MAXLIST;
+> }
+> int ListSize(List *pl){
+>   return pl->size;
+> }
+> void DestroyList(List *pl){
+>   pl-size = 0;
+> }
+> void InsertList(int p, ListEntry e, List *pl){
+>   int i;
+>   for(i = pl->size-1; i>=p; i--){
+>     pl->entry[i+1] = pl->entry[i];
+>   }
+>   pl->entry[p] = e;
+>   pl->size++;
+> }
+> 
+> void DeleteList(int p, ListEntry *pe, List *pl){
+>   int i;
+>   *pe = pl->entry[p]
+>   for(i = p+1; i <= pl->size-1; i++){
+>     pl->entry[i-1] = pl->entry[i];
+>   }
+>   pl->size--;
+> }
+> 
+> void TraverseList(List *pl, void (*Visit)(ListEntry e)){
+>   int i;
+>   for(i=0; i < pl->size; i++){
+>     (*Visit)(pl->entry[i]);
+>   }
+> } 
+> void RetrieveList(int p, ListEntry *pe, List *pl){
+>   *pe = pl->entry[p];
+> }
+> void ReplaceList(int p, ListEntry e, List *pl){
+>   pl->entry[p] = e;
+> }
+> ```
+> Can be used as a Stack or as a Queue  
+---  
