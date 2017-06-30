@@ -599,3 +599,106 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > ```
 > Can be used as a Stack or as a Queue  
 ---  
+- L14: Lists: Linked-based Implementation  
+> ```c 
+> #include "Global.h"
+> typedef struct listnode{
+>   ListEntry entry;
+>   struct listnode *next;
+> }ListNode;
+> typedef struct list{
+>   ListNode *head;
+>   int size;
+> }List;
+> 
+> void CreateList(List *pl){
+>   pl->head = NULL;
+>   pl->size = 0;
+> }
+> int ListEmpty(List *pl){
+>   return (pl->size == 0);
+> }
+> int ListFull(List *pl){
+>   return 0;
+> }
+> int ListSize(List *pl){
+>   return pl->size;
+> }
+> void DestroyList(List *pl){
+>   ListNode *q;
+>   while(pl->head){
+>     q = pl->head->next;
+>     free(pl->head);
+>     pl->head = q;
+>   }
+>   pl-size = 0;
+> }
+> int InsertList(int pos, ListEntry e, List *pl){
+>   ListNode *p, *q;
+>   int i;
+>   if(p = (ListNode *)malloc(sizeof(ListNode))){
+>     p->entry = e;
+>     p->next = NULL;
+>     if(pos==0){
+>       p->next = pl->head;
+>       pl->head = p;
+>     }
+>     else{
+>       for(q=pl->head, i=0; i<pos-1; i++){
+>         q = q->next
+>       }
+>       p->next = q->next;
+>       q->next = p;
+>     }
+>     pl->size++;
+>     return 1;
+>   } else { return 0;}
+> }
+> 
+> void DeleteList(int pos, ListEntry *pe, List *pl){
+>   int i;
+>   ListNode *q, *tmp;
+>   if(pos==0){
+>     *pe = pl->head->entry;
+>     tmp = pl->head->next;
+>     free(pl->head);
+>     pl->head = tmp;
+>   }
+>   else{
+>     for(q = pl->head, i=0; i <pos-1; i++){
+>       q = q->next;
+>     }
+>     *pe = q->next->entry;
+>     tmp = q->next->next;
+>     free(q->next);
+>     q->next = tmp;
+>   }
+>   pl->size--;
+> }
+> 
+> void TraverseList(List *pl, void (*Visit)(ListEntry e)){
+>   ListNode *p = pl->head;
+>   while(p){
+>     (*Visit)(p->entry);
+>     p = p->next;
+>   }
+> } 
+> void RetrieveList(int pos, ListEntry *pe, List *pl){
+>   int i;
+>   ListNode *q;
+>   for(q=pl->head, i = 0; i < pos; i++){
+>     q = q->next;
+>   }
+>   *pe = q->entry;
+> }
+> void ReplaceList(int p, ListEntry e, List *pl){
+>   int i;
+>   ListNode *q;
+>   for(q=pl->head, i = 0; i < pos; i++){
+>     q = q->next;
+>   }
+>   q->entry = e;
+> }
+> ```
+> Increase performance by keeping track of current position in inserting and deleteing an element.  
+---
