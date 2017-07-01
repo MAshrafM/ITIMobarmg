@@ -795,3 +795,6 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >  The unsuccessful case takes log(n)+1 if the tree is full, all level are saturated.  
 >  No other search method does better than binary search in the worst case.  
 ---  
+- L17: Analysis of Binary Search Algorithm II  
+> Mathematical equations, Theorems and Proofs.  
+---  
