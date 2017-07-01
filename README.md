@@ -702,3 +702,83 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > ```
 > Increase performance by keeping track of current position in inserting and deleteing an element.  
 ---
+- L15: Search and Analysis Algorithms
+> Sequential Search  
+> ```c
+> typedef int KeyType;
+> 
+> #define EQ(a, b) ((a)==(b))
+> #define LT(a, b) ((a)<(b))
+> #define LE(a, b) ((a)<=(b))
+> #define GT(a, b) ((a)>(b))
+> #define GE(a, b) ((a)>=(b))
+> 
+> //#define EQ(a, b) (!strcmp((a), (b)))
+> //#define LT(a, b) (strcmp((a), (b))<0)
+> //#define LE(a, b) (strcmp((a), (b))<=0)
+> //#define GT(a, b) (strcmp((a), (b))>0)
+> //#define GE(a, b) (strcmp((a), (b))>=0)
+> 
+> typedef struct elementtype{
+> 	KeyType key;
+> 	int year;
+> 	float	age;
+> 	int tmp;
+> 	short int	etype; 
+> 	union{
+> 		int		year;
+> 		float	age;
+> 		void	*ptr;
+> 		char	par;
+> 	}info;
+> }ElementType;
+> 
+> /*************/
+> int SequentialSearch(KeyType target, List *pl){
+>   int current, s = ListSize(pl);
+>   ListEntry currententry;
+>   for(current = 0; current < s; current++){
+>     RetrieveList(current, &currententry, pl);
+>     if(EQ(target, currententry.key)){return current;}
+>   }
+>   return -1;
+> }
+> ```
+> Ordered List 
+> ```c
+> void InsertOrder(ListEntry e, List *pl){
+>   int current, s = ListSize(pl);
+>   ListEntry currententry;
+>   for(current = 0; current < s; current++){
+>     RetrieveList(current, &currententry, pl);
+>     if(LE(e.Key, currententry.key)){break;}
+>   }
+>   InsertList(current, e, pl)
+> }
+> ```
+> Binary Search
+> ```c
+> int RecBinary2(List *pl, KeyType k, int bottom, int top){
+>   int middle;
+>   if(bottom <= top){
+>     middle = (bottom+top)/2;
+>     if(EQ(k, pl->entry[middle].key)){return middle;}
+>     if(LT(k, pl->entry[middle].key)){return RecBinary2(pl, k, bottom, middle-1);}
+>     else{return RecBinary2(pl, k, middle+1, top);}
+>     return -1;
+>   }
+> }
+> int RecBinary2Search(KeyType k, List *pl){return RecBinary2(pl, k, 0, pl->size-1);}
+> 
+> int Binary2Search(KeyType k, List *pl){
+>   int middle, bottom = 0;, top = pl->size-1;
+>   while(bottom <= top){
+>     middle = (bottom+top)/2;
+>     if(EQ(k, pl->entry[middle].key)){return middle;}
+>     if(LT(k, pl->entry[middle].key)){top = middle - 1;}
+>     else{bottom = middle + 1;}
+>   }
+>   return -1;
+> }
+> ```
+---  
