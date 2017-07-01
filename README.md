@@ -782,3 +782,16 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > }
 > ```
 ---  
+- L16: Analysis of Binary Search Algorithm I  
+> Binary Tree: is either empty, or it consists of a node (vertex) called the root together with two binary trees called the left subtree and the right subtree of the root, the only node at level 0 is the root, a node may have up to two childreen in the next level, the childreen of a node are joined to their parents by links called edges.  
+> The depth of height of a node in the tree is the node's distance from the root ie. level  
+> outdegree is the number of edges coming out of a node. at most 2 at binary tree.  
+> Indegree is the number of edges coming to a node.  
+> Saturated level level with the max. number of nodes.  
+> Full tree a tree whose all levels are saturated.  
+> - For the Binary Search tree:  
+>  The best case takes 1 comparison  
+>  The worst successful case takes log(n)+1  
+>  The unsuccessful case takes log(n)+1 if the tree is full, all level are saturated.  
+>  No other search method does better than binary search in the worst case.  
+---  
