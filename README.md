@@ -798,3 +798,74 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 - L17: Analysis of Binary Search Algorithm II  
 > Mathematical equations, Theorems and Proofs.  
 ---  
+- L18: Trees  
+> ```c 
+> //Tree.h
+> #include Global
+> typedef struct treenode{
+>   TtreeEntry entry;
+>   struct treenode *left, *right;
+> }TreeNode;
+> typedef TreeNode *Tree;
+> typedef struct tree{
+>   TreeNode *root;
+>   int size;
+>   int depth;
+> }Tree;
+> 
+> void CreateTree(Tree *);
+> void ClearTree(Tree *);
+> int TreeSize(Tree *);
+> int TreeDepth(Tree *);
+> int TreeEmpty(Tree *)
+> void Preorder(Tree *, void (*)(TreeEntry));
+> void Inorder(Tree *, void (*)(TreeEntry));
+> void Postorder(Tree *, void (*)(TreeEntry));
+> /*****/
+> void CreateTree(Tree *pt){
+>   pt->root = NULL;
+>   pt->depth = 0;
+>   pt->size = 0;
+> }
+> int TreeEmpty(Tree *pt){
+>   return !(pt->root);
+> }
+> int TreeFull(Tree *pt){
+>   return 0;
+> }
+> void InorderRec(Tree *pt, void (*pvisit)(TreeEntry)){
+>   if(*pt){
+>     InorderRec(&(*pt)->left, pvisit);
+>     (*pvisit)((*pt)->entry);
+>     InorderRec(&(*pt)->right, pvisit);
+>   }
+> }
+> void Inorder(Tree *pt, void (*pvisit)(TreeEntry)){
+>   Stack s;
+>   void *p = (void *) (*pt);
+>   if(p){
+>     CreateStack(p, &s);
+>     do{
+>       while(p){
+>         Push(p, &s);
+>         p = (void *)(((TreeNode *)p)->left);
+>       }
+>       if(!StackEmpty(&s)){
+>         Pop(&p, &s);
+>         (*pvisit)(((TreeNode *)p)->entry);
+>         p = (void *)(((TreeNode *)p)->right);
+>       }
+>     }while(!StackEmpty(&s) || p);
+>   }
+> }
+> 
+> void ClearTreeRec(Tree *pt){
+>   if(*pt){
+>     ClearTreeRec(&(*pt)->left);
+>     ClearTreeRec(&(*pt)->right);
+>     free(*pt);
+>     *pt = NULL;
+>   }
+> }
+> ```  
+---
