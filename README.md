@@ -869,3 +869,32 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 > }
 > ```  
 ---
+- L19: Binary Search I 
+> ```c 
+> void InsertTreeRec(Tree *pt, TreeEntry *pe){
+>   if(!*pt){
+>     *pt = (Tree)malloc(sizeof(TreeNode));
+>     (*pt)->entry = *pe;
+>     (*pt)->left = NULL;
+>     (*pt)->right = NULL;
+>   }
+>   else if(LT(pe->key, (*pt)->entry.key)){
+>     InsertTreeRec(&(*pt)->left, pe);
+>   }
+>   else{
+>     InsertTreeRec(&(*pt)->right, pe);
+>   }
+> }
+> 
+> int TreeSizeRec(Tree *pt){
+>   if(!*pt){return 0;}
+>   return (1+TreeSizeRec(&(*pt)->left) + TreeSizeRec(&(*pt)->right));
+> }
+> int TreeDepthRec(Tree *pt){
+>   if(!*pt){return 0;}
+>   int a = TreeDepthRec(&(*pt)->left);
+>   int b = TreeDepthRec(&(*pt)->right);
+>   return (a>b) ? 1+a : 1+b;
+> }
+> ```  
+---  
