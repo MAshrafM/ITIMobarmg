@@ -217,7 +217,7 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >   StackNode *pn = ps->top;
 >   for(x = 0; pn; pn = pn->next){ x++; }
 >   return x;
->   // retrun ps->size;
+>   // return ps->size;
 > }
 > ```
 > Which is better (Array-based || Linked-based) ? is a wrong question. Know very well the pros and cons of each implementation and decided based on your application needs.  
@@ -420,7 +420,7 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >   pq->size--;
 > }
 > int QueueEmpty(Queue *pq){
->   retrun !pq->size
+>   return !pq->size
 > }
 > int QueueFull(Queue *pq){
 >   return (pq->size == MAXQUEUE);
@@ -481,7 +481,7 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >   pq->size--;
 > }
 > int QueueEmpty(Queue *pq){
->   retrun !pq->size
+>   return !pq->size
 > }
 > int QueueFull(Queue *pq){
 >   return 0;
@@ -897,4 +897,61 @@ Though this is not part of the ITI series, this is the recommended course on Dat
 >   return (a>b) ? 1+a : 1+b;
 > }
 > ```  
+---  
+- L20: Binary Search II 
+> ```c 
+> int FindItemTreeRec(Tree *pt, TreeEntry *pe, KeyType k){
+>   if(!*pt){return 0;}
+>   if(EQ((*pt)->entry.key, k)){
+>     *pe = (*pt)->entry;
+>     return 1;
+>   }
+>   if(LT(k, (*pt)->entry.key)){
+>     return FindItemTreeRec(&(*pt)->left, pe,k);
+>   }
+>   else{
+>     return FindItemTreeRec(&(*pt)->right, pe,k);
+>   }
+> }
+> 
+> int DeleteItemTree(Tree *pt, TreeEntry *pe, KeyType k){
+>   int found = 0;
+>   TreeNode *q = *pt, *r = NULL;
+>   while(q && !(found = EQ(k, q->entry.key))){
+>     r = q;
+>     if(LT(k, q->entry.key)){
+>       q = q->left;
+>     }
+>     else{
+>       q = q->right;
+>     }
+>   }
+>   if(found){
+>     *pe = q->entry;
+>     if(!r){
+>       DeleteNodeTree(pt);
+>     }
+>     else if(LT(k, r->entry.key)){
+>       DeleteNodeTree(&r->left);
+>     }
+>     else{
+>       DeleteNodeTree(&r->right);
+>     }
+>   }
+>   return found;
+> }
+> 
+> void DeleteNodeTree(Tree *pt){
+>   TreeNode *q = *pt, *r;
+>   if(!(*pt)->left){*pt = (*pt)->right;}
+>   else if(!(*pt)->right){(*pt)->left;}
+>   else{
+>     *pt = (*pt)->right;
+>     for(r = q->right; r->left; r = r->left);
+>     r->left = q->left;
+>   }
+>   free(q);
+> }
+> ```
+> Balancing Algorithm in another course  
 ---  
