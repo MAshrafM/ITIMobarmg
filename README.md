@@ -64,3 +64,44 @@ private void Form2_Load(object sender, EventArgs e){
 > ContextMenuStrip  
 > OpenFileDialog  
 ---  
+- L03: Model Connection
+> Connected/Disconnected Model.  
+```cs
+  ...
+  /// Connected Model
+  // After connecting to a Database Source this line forms with the approiate properties.  
+  string conStr = "Data Source = .; Initial Catalog = Test; ";
+  // make a SQL connection from the defined conStr
+  SqlConnection con = new SqlConnection(conStr);
+  // make a SQL command after the connection
+  SqlCommand cmd = new SqlCommand("select * from country");
+  // Open The Connection
+  con.Open();
+  // Retrieve data from database
+  SqlDataReader reader = cmd.ExecuteReader();
+  // retrieve all records
+  List<string> sRows = new List<string>();
+  while(reader.Read()){ 
+    sRows.Add(reader["Name"].toString());
+  }
+  // Print rows
+  for(int i = 0; 0 < sRows.Count; i++){
+    Console.WriteLine(sRows[i]);
+  }
+  //do not forget to close the connection
+  con.Close();
+  /// Disconnected Model
+  string conStr = "Data Source = .; Initial Catalog = Test; ";
+  SqlConnection con = new SqlConnection(conStr);
+  SqlCommand cmd = new SqlCommand("select * from country");
+  // make a SQL Adapter
+  SqlDataAdapter adpt = new SqlDataAdapter(cmd);
+  // create data table to work on
+  DataTable dt = new DataTable();
+  // fill the adpt from the select cmd
+  adpt.Fill(dt);
+  // Print Rows
+  for(int i = 0; 0 < dt.Rows.Count; i++){
+    Console.WriteLine(dt.Rows[i]["Name"]);
+  }
+```
