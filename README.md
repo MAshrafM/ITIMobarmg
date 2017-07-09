@@ -91,7 +91,7 @@ private void Form2_Load(object sender, EventArgs e){
   //do not forget to close the connection
   con.Close();
   /// Disconnected Model
-  string conStr = "Data Source = .; Initial Catalog = Test; ";
+  string conStr = "Data Source = .; Initial Catalog = Test; Integrated Security = True";
   SqlConnection con = new SqlConnection(conStr);
   SqlCommand cmd = new SqlCommand("select * from country");
   // make a SQL Adapter
@@ -104,4 +104,88 @@ private void Form2_Load(object sender, EventArgs e){
   for(int i = 0; 0 < dt.Rows.Count; i++){
     Console.WriteLine(dt.Rows[i]["Name"]);
   }
+```  
+---   
+- L04: Insert and Update  
+```cs
+/// Example Form with two drop down list.
+/// First with Country Name.
+/// Second with Cities in the selected country.
+void Form1_Load(object sender, EventArgs e){
+  //Connection string
+  string conStr = "Data Source = .; Initial Catalog = Test; Integrated Security = True";
+  // Data Adapter
+  SqlDataAdapter adpt = new SqlDataAdapter("select * from country", conStr);
+  // create data table and fill it from database
+  DataTable dt = new DataTable();
+  adpt.Fill(dt);
+  // configure drop down list
+  ddlCountry.DisplayeMember = "Name";
+  ddlCountry.ValueMember = "Id";
+  ddlCountry.DataSource = dt;
+  // Show cities of the country
+  FillCities(int(ddlCountry.SelectedValue));
+}
+private void ddlCountry_SelectedIndexChanged(object sender, EventArgs e){
+  FillCities(int(ddlCountry.SelectedValue));
+}
+private void FillCities(int countryId){
+  //Connection string
+  string conStr = "Data Source = .; Initial Catalog = Test; Integrated Security = True";
+  // Data Adapter
+  SqlDataAdapter adpt = new SqlDataAdapter(string.Format("select * from city where fk_CountryId = {0}", countryId), conStr);
+  // create data table and fill it from database
+  DataTable dt = new DataTable();
+  adpt.Fill(dt);
+  // configure drop down list
+  ddlCity.DisplayeMember = "Name";
+  ddlCity.ValueMember = "Id";
+  ddlCity.DataSource = dt;
+}
 ```
+> - Inserting and Deleteing  
+```cs
+/// Example: Form with a drop down list and a button
+/// select a city from the drop down list after clicking the button the city is deleted from the list.
+private void Form2_Load(object sender, EventArgs e){
+  FillCities();
+}
+
+private void FillCities(){
+  //Connection string
+  string conStr = "Data Source = .; Initial Catalog = Test; Integrated Security = True";
+  // Data Adapter
+  SqlDataAdapter adpt = new SqlDataAdapter("select * from city", conStr);
+  // create data table and fill it from database
+  DataTable dt = new DataTable();
+  adpt.Fill(dt);
+  // configure drop down list
+  ddlCity.DisplayeMember = "Name";
+  ddlCity.ValueMember = "Id";
+  ddlCity.DataSource = dt;
+}
+
+private void button1_Click(object sender, EventArgs e){
+  //Connection string
+  string conStr = "Data Source = .; Initial Catalog = Test; Integrated Security = True";
+  // Connection
+  SqlConnection con = new SqlConnection(conStr);
+  // Command
+  SqlCommand cmd = new SqlCommand(string.Format("delete from city where id = {0}", ddlCity.SelectedValue), con);
+  // Open Connection
+  con.Open();
+  // Excute query 
+  int noOfRowsAffected = cmd.ExecuteNonQuery();
+  // close connection
+  con.Close();
+  if(noOfRowsAffected > 0){
+    MessageBox.Show("Data Deleted");
+  }
+  else{
+    MessageBox.Show("Error");
+  }
+  // update the drop down list
+  FillCities();
+}
+```
+---   
