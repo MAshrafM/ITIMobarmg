@@ -189,3 +189,227 @@ private void button1_Click(object sender, EventArgs e){
 }
 ```
 ---   
+- L05: ADO.NET  
+> Three Tiers Layers
+```cs
+/// Data Base Layer (DBL)
+static class DBL{
+  static string conStr;
+  // static initializer
+  static DBL(){
+    conStr = "Data Source = .; Initial Catalog = Test; Integrated Security = True";
+  }
+  // Dynamic excute queries
+  public static DataTable ExcuteQuery(string selectCommand){
+    // init Adapter
+    SqlDataAdapter adpt = new SqlDataAdapter(selectCommand, conStr);
+    // return result
+    DataTable result = new DataTable();
+    // fill adapter
+    adpt.Fill(result);
+    return result;
+  }
+  // To insert/update/delete
+  public static int ExcuteNonQuery(string dmlCommand){
+    int result;
+    SqlConnection con = new SqlConnection(conStr);
+    SqlCommand cmd = new SqlCommand(dmlCommand, con);
+    con.Open();
+    result = cmd.ExcuteNonQuery();
+    con.Close();
+    return result;
+  }
+  public static object ExcuteScaler(string selectCommand){
+    object result = null;
+    DataTable dt = ExcuteQuery(selectCommand);
+    if(dt.Rows.Count > 0){
+      result = dt.Rows[0][0];
+    }
+    return result;
+  }
+}
+/// Data Access Layer (DAL)
+static class CountryDAL{
+  // Select All
+  public static DataTable GetAll(){
+    return DBL.ExcuteQuery("Select * from Country");
+  }
+  // Select One
+  public static DataRow DataRow GetById(int id){
+    DataRow result = null;
+    DataTable dt = DBL.ExcuteQuery(string.Format("Select * from Country where id = {0}", id));
+    if(dt.Rows.Count > 0){
+      result = dt.Rows[0];
+    }
+    return result
+  }
+  // Delete
+  public static bool Delete(int id){
+    return DBL.ExcuteNonQuery(string.Format("Delete * from Country where id = {0}", id)) > 0;
+  }
+  // Update
+  public static bool Update(int id, string name){
+    return DBL.ExcuteNonQuery(string.Format("update Country set name = '{0}' where id = {1}", name, id)) > 0;
+  }
+  // Insert
+  public static bool Add(string name){
+    return DBL.ExcuteNonQuery(string.Format("insert into Country values('{0}')", name)) > 0;
+  }
+}
+static class CityDAL{
+  // Select All
+  public static DataTable GetAll(){
+    return DBL.ExcuteQuery("Select * from City");
+  }
+  // Select One
+  public static DataRow DataRow GetById(int id){
+    DataRow result = null;
+    DataTable dt = DBL.ExcuteQuery(string.Format("Select * from City where id = {0}", id));
+    if(dt.Rows.Count > 0){
+      result = dt.Rows[0];
+    }
+    return result
+  }
+    // Get All by Country Id
+  public static DataTable GetByCountryId(int countryId){
+    return DBL.ExcuteQuery(string.Format("select * from City where fk_CountryId = {0}", countryId));
+  }
+  // Delete
+  public static bool Delete(int id){
+    return DBL.ExcuteNonQuery(string.Format("Delete * from City where id = {0}", id)) > 0;
+  }
+  // Update
+  public static bool Update(int id, string name, int countryId){
+    return DBL.ExcuteNonQuery(string.Format("update City set name = '{0}', fk_CountryId = {1} where id = {2}", name, countryId, id)) > 0;
+  }
+  // Insert
+  public static bool Add(string name, int countryId){
+    return DBL.ExcuteNonQuery(string.Format("insert into City values('{0}', {1})", name, countryId)) > 0;
+  }  
+}
+/// Form using the DB Layer
+void Form1_Load(object sender, EventArgs e){ 
+  // configure drop down list
+  ddlCountry.DisplayeMember = "Name";
+  ddlCountry.ValueMember = "Id";
+  ddlCountry.DataSource = CountryDAL.GetAll();
+  // Show cities of the country
+  FillCities(int(ddlCountry.SelectedValue));
+}
+
+/// Function with DB Layer
+private void FillCities(countryId){
+  // configure drop down list
+  ddlCity.DisplayeMember = "Name";
+  ddlCity.ValueMember = "Id";
+  ddlCity.DataSource = CityDAL.GetByCountryId(countryId);
+}
+/******* Form2 *******/
+/// Using DBL
+private void Form2_Load(object sender, EventArgs e){
+  FillCities();
+}
+
+private void FillCities(){
+  // configure drop down list
+  ddlCity.DisplayeMember = "Name";
+  ddlCity.ValueMember = "Id";
+  ddlCity.DataSource = CityDAL.GetAll();
+}
+
+private void button1_Click(object sender, EventArgs e){
+  bool i = CityDAL.Delete((int)ddlCity.SelectedValue);
+}
+```
+> Six Tier Layer  
+> Object Relational Model (ORM)
+```cs
+/// Entity Layer
+sealed class Country{
+  int id;
+  string name;
+  CityCollection cities; 
+  // properties
+  public int Id{
+    get{ return id; }
+    set{ id = value}
+  }
+  public string Name{
+    get { return name; }
+    set { name = value; } 
+  }
+  public CityCollection Cities{
+    get { return cities; }
+    set { cities = value; }
+  }
+  // Constructors
+  public Country(int id, string name, CityCollection cities){
+    this.id = id;
+    this.name = name;
+    this.cities = cities;
+  }
+  public Country(int id, string name, params City[] citiesCol){
+    this.id = id;
+    this.name = name;
+    for(int i = 0; i  cities.Length; i++){
+      this.cities.Add(cities[i]);
+    }
+  }
+  public Country(int id, string name):this(id, name, citiesCol:null){}
+  public Country(string name):this(0, name, citiesCol:null){}
+  public Country(Country c):this(c.id, c.name, c.cities){}
+  // Clone
+  public Country Clone(){
+    return new Country(this);
+  }
+  // Override
+  public override string ToString(){
+    return base.ToString();
+  }
+  public override bool Equals(object obj){
+    return base.Equals(obj);
+  }
+}
+sealed class City{
+  int id;
+  string name;
+  Country country;
+  //Properties
+  public int Id{
+    get{ return id; }
+    set{ id = value}
+  }
+  public string Name{
+    get { return name; }
+    set { name = value; } 
+  }
+  public Country Country{
+    get { return country; }
+    set { country = value; }
+  }
+  // Constructors
+  public City(int id, string name, Country country){
+    this.id = id;
+    this.name = name;
+    this.country = country;
+  }
+  public City(int id, string name):this(id, name, null){}
+  public City(string name):this(0, name, null){}
+  public City(City c):this(c.id, c.name, null){}
+  // Clone
+  public City Clone(){
+    return new City(this);
+  }
+  // Override
+  public override string ToString(){
+    return base.ToString();
+  }
+  public override bool Equals(object obj){
+    return base.Equals(obj);
+  }
+}
+/// Collections Layer
+class CityCollection:List<City>{}
+class CountryCollection:List<Country>{}
+```
+--- 
