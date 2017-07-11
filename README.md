@@ -262,7 +262,7 @@ static class CityDAL{
     return DBL.ExcuteQuery("Select * from City");
   }
   // Select One
-  public static DataRow DataRow GetById(int id){
+  public static DataRow GetById(int id){
     DataRow result = null;
     DataTable dt = DBL.ExcuteQuery(string.Format("Select * from City where id = {0}", id));
     if(dt.Rows.Count > 0){
@@ -413,3 +413,142 @@ class CityCollection:List<City>{}
 class CountryCollection:List<Country>{}
 ```
 --- 
+- L06: ORM (continue)  
+```cs
+/// Data Access Layer (DAL)
+static class CountryDAL{
+  // Select All
+  public static CountryCollection GetAll(){
+    DataTable dt = DBL.ExcuteQuery("Select * from Country");
+    CountryCollection result = new CountryCollection();
+    for(int i = 0; i < dt.Rows.Count; i++){
+      result.Add(new Country((int)dt.Rows[i]["Id"], dt.Rows[i]["name"].ToString()));
+    }
+    return result;
+  }
+  // Select One
+  public static Country GetById(int id){
+    Country result = null;
+    DataTable dt = DBL.ExcuteQuery(string.Format("Select * from Country where id = {0}", id));
+    if(dt.Rows.Count > 0){
+      result = new Country((int)dt.Rows[0]["Id"], dt.Rows[0]["name"].ToString());
+    }
+    return result
+  }
+  // Delete
+  public static bool Delete(int id){
+    return DBL.ExcuteNonQuery(string.Format("Delete * from Country where id = {0}", id)) > 0;
+  }
+  public static bool Delete(Country c){
+    return Delete(c.Id);
+  }
+  // Update
+  public static bool Update(int id, string name){
+    return DBL.ExcuteNonQuery(string.Format("update Country set name = '{0}' where id = {1}", name, id)) > 0;
+  }
+  // Insert
+  public static Country Add(string name){
+    int id = (int)DBL.ExcuteScaler(string.Format("insert into Country values('{0}'); select @@identity", name));
+    return GetById(id);
+  }
+}
+static class CityDAL{
+  // Select All
+  public static CityCollection GetAll(){
+    CityCollection result = new CityCollection();
+    DataTablt dt = DBL.ExcuteQuery("Select * from City");
+    for(int i = 0; i < dt.Rows.Count; i++){
+      result.Add(new City((int)dt.Rows[i]["Id"], dt.Rows[i]["name"].ToString(), CountryDAL.GetById((int)dt.Rows[i]["fk_CountryId"])));
+    }
+    return result;
+  }
+  // Select One
+  public static City GetById(int id){
+    City result = null;
+    DataTable dt = DBL.ExcuteQuery(string.Format("Select * from City where id = {0}", id));
+    if(dt.Rows.Count > 0){
+      result.Add(new City((int)dt.Rows[0]["Id"], dt.Rows[0]["name"].ToString(), CountryDAL.GetById((int)dt.Rows[0]["fk_CountryId"])));
+    }
+    return result
+  }
+    // Get All by Country Id
+  public static CityCollection GetByCountryId(int countryId){
+    DataTable dt = DBL.ExcuteQuery(string.Format("select * from City where fk_CountryId = {0}", countryId));
+    CityCollection cities = new CityCollection();
+    for(int i = 0; i < dt.Rows.Count; i++){
+      cities.Add(new City((int)dt.Rows[i]["Id"], dt.Rows[i]["name"].ToString(), CountryDAL.GetById((int)dt.Rows[i]["fk_CountryId"])));
+    }
+    return cities;
+  }
+  // Delete
+  public static bool Delete(int id){
+    return DBL.ExcuteNonQuery(string.Format("Delete * from City where id = {0}", id)) > 0;
+  }
+  // Update
+  public static bool Update(int id, string name, int countryId){
+    return DBL.ExcuteNonQuery(string.Format("update City set name = '{0}', fk_CountryId = {1} where id = {2}", name, countryId, id)) > 0;
+  }
+  // Insert
+  public static City Add(string name, int countryId){
+    int id =  (int)DBL.ExcuteScaler(string.Format("insert into City values('{0}', {1}); select @@identity", name, countryId));
+    return GetById(id);
+  }  
+}
+/// Business Logic Layer BLL
+static class CountryBLL{
+  // Select All
+  public static CountryCollection GetAll(){
+    return CountryDAL.GetAll();
+  }
+  // Select One
+  public static Country GetById(int id){
+    return CountryDAL.GetById(id);
+  }
+  // Delete
+  public static bool Delete(int id){
+    return CountryDAL.Delete(id);
+  }
+  // Update
+  public static bool Update(int id, string name){
+    return CountryDAL.Update(id, name);
+  }
+  // Insert
+  public static Country Add(string name){
+    return CountryDAL.Add(name);
+  }
+}
+static class CityBLL{
+  // Select All
+  public static CityCollection GetAll(){
+    return CityDAL.GetAll();
+  }
+  // Select One
+  public static City GetById(int id){
+    return CityDAL.GetById(id);
+  }
+    // Get All by Country Id
+  public static CityCollection GetByCountryId(int countryId){
+    return CityDAL.GetByCountryId(countryId);
+  }
+  // Delete
+  public static bool Delete(int id){
+    return CityDAL.Delete(id);
+  }
+  // Update
+  public static bool Update(int id, string name, int countryId){
+    return CityDAL.Update(id, name, countryId);
+  }
+  // Insert
+  public static City Add(string name, int countryId){
+    return CityDAL.Add(name, countryId);
+  }  
+}
+/// Interface
+interface IDAL<Collection, Entity, PrimaryKey>{
+  Collection GetAll();
+  Entity GetById(PrimaryKey id);
+  bool Delete(PrimaryKey id);
+  bool Update(Entity obj);
+  void Add(Entity obj);
+}
+```
