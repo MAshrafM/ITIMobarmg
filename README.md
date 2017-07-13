@@ -56,4 +56,83 @@ class Program{
   }
 }
 ```
+---  
+- L02: Events
+```cs
+delegate void MyDelegate();
+class Menu{
+  public event MyDelegate PressEnter;
+  List<string> menuItems;
+  ConsoleColor hBackColor;
+  ConsoleColor hForeColor;
+  ConsoleColor backColor;
+  ConsoleColor foreColor;
+  int x;
+  int y;
+  int current;
+  //Constructor
+  public Menu(List<string> menuItems,ConsoleColor hBackColor, ConsoleColor hForeColor, ConsoleColor backColor, ConsoleColor foreColor, int x, int y){
+    PressEnter = OnPressEnter;
+    this.menuItems = menuItems;
+    this.hBackColor = hBackColor;
+    this.hForeColor = hForeColor;
+    this.backColor = backColor;
+    this.foreColor = foreColor;
+    this.x = x;
+    this.y = y;
+    this.current = 0;
+  }
+  public Menu(List<string> menuItems,ConsoleColor hBackColor, ConsoleColor hForeColor, int x, int y):this(menuItems, hBackColor, hForeColor, ConsoleColor.Black, ConsoleColor.White, x, y){}
+  
+  private void Draw(){
+    for(int i = 0; i < menuItems.Count; i++){
+      Console.SetCursorPosition(x, y+i);
+      if(i == current){
+        Console.BackgroundColor = hBackColor;
+        Console.ForegroundColor = hForeColor;
+      }
+      else{
+        Console.BackgroundColor = BackColor;
+        Console.ForegroundColor = ForeColor;
+      }
+      Console.Write(menuItems[i]);
+    }
+    Console.ResetColor();
+  }
+  public void Show(){
+    bool flag = true;
+    ConsoleKeyInfo cki;
+    do{
+      Draw();
+      cki = Console.ReadKey(true);
+      switch(cki.Key){
+        case ConsoleKey.UpArrow:
+          current--;
+          if(current < 0){current = menuItems.Count - 1;}
+          break;
+        case ConsoleKey.DownArrow:
+          current++;
+          if(current == menuItems.Count){current = 0;}
+          break;
+        case ConsoleKey.Enter:
+          PressEnter();
+          break;
+        case Console.Escape:
+          flag = false;
+          break;
+        case ConsoleKey.Home:
+          current = 0;
+          break;
+        case ConsoleKey.End:
+          current = menuItems.Count - 1;
+          break;
+      }
+    }while(flag);
+  }
+  
+  public void OnPressEnter(){
+    
+  }
+}
+```
 ---
