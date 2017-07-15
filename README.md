@@ -337,3 +337,25 @@ class Menu{
 }  
 ```  
 ---  
+- L05: Anonymous Functions and Lambda Expressions  
+```cs
+/// Anonymous Functions
+public delegate double Calc(double x, double y);
+public class EntryPoint{
+  static void Main(){
+    Calc abc = delegate(double o, double p){
+      return o / p ;
+    }
+    double u = abc(4, 3);
+  }
+}
+/// Lambda Expressions
+public delegate double Calc(double x, double y);
+public class EntryPoint{
+  static void Main(){
+    Calc abc = (o, p) => o / p;
+    double u = abc(4, 3);
+  }
+}
+```
+---  
