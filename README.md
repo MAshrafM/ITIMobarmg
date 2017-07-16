@@ -359,3 +359,6 @@ public class EntryPoint{
 }
 ```
 ---  
+- L06: Declarative / Imperative Programming  
+> Attributes in c#  
+---  
