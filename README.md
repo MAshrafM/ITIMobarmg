@@ -362,3 +362,7 @@ public class EntryPoint{
 - L06: Declarative / Imperative Programming  
 > Attributes in c#  
 ---  
+- L07: Enum / Attributes
+> obsolute  
+> try{}catch{}finally{}  
+---   
