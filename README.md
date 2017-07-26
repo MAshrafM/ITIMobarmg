@@ -11,3 +11,8 @@
 > - ASP.NET page life cycle.  
 > - Request and Response objects.  
 ---  
+- L02: HTTP Request  
+> - HTTP statless.  
+> - Web Page Life Cycle.  
+> - Autoload - Auto-Refresh.  
+---  
