@@ -24,3 +24,9 @@
 > - Using query string.  
 > - Using Session.  
 ---  
+- L04: UI Components
+> - .aspx / .ascx  
+> - Web User Controls.  
+> - MasterPage  
+> - Stand alone web form.  
+---  
