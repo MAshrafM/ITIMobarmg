@@ -30,3 +30,8 @@
 > - MasterPage  
 > - Stand alone web form.  
 ---  
+- L05: Session.
+> - Validation control.  
+> - Sessions.  
+> - Page Events / Application Events.  
+---  
