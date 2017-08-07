@@ -35,3 +35,8 @@
 > - Sessions.  
 > - Page Events / Application Events.  
 ---  
+- L06: Styles
+> - Adding Stylesheets.  
+> - Adding Themes.  
+> - Selecting Themes.  
+---  
