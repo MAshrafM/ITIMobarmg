@@ -40,3 +40,7 @@
 > - Adding Themes.  
 > - Selecting Themes.  
 ---  
+- L07: Skin  
+> - Skin Files.  
+> - Using Cookies.  
+---  
