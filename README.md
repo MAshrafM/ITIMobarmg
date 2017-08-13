@@ -44,3 +44,10 @@
 > - Skin Files.  
 > - Using Cookies.  
 ---  
+- L08: ADO.NET  
+> - Connected/Dis-Connected Models.  
+> - SQLConnection.  
+> - Binding.  
+> - Reader.  
+---  
+
