@@ -50,4 +50,7 @@
 > - Binding.  
 > - Reader.  
 ---  
-
+- L09: Disconnected Model 
+> - GridViewEditEvent  
+> - GridViewUpdateEvent  
+---  
