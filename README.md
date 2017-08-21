@@ -54,3 +54,7 @@
 > - GridViewEditEvent  
 > - GridViewUpdateEvent  
 ---  
+- L10: Layers  
+> DAL (DataAccessLayer) > DBManager  
+> Full Example.  
+---  
