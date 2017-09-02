@@ -58,3 +58,8 @@
 > DAL (DataAccessLayer) > DBManager  
 > Full Example.  
 ---  
+- L11: Login System
+> Sitemap for navigations
+> User Management System  
+> Authorization
+---   
