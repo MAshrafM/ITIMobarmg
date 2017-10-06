@@ -67,3 +67,8 @@
 > Multi-Language  
 > [Controls, Db, Stylesheets]  
 --- 
+- L13: Profiles
+> QueryString/Session/Application/ViewState/Cookies(temp-persistant)/Profiles   
+> Profiles saved in db the most reliable.  
+> Context Object.  
+---
