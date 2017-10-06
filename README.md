@@ -63,3 +63,7 @@
 > User Management System  
 > Authorization
 ---   
+- L12: Resource Files
+> Multi-Language  
+> [Controls, Db, Stylesheets]  
+--- 
